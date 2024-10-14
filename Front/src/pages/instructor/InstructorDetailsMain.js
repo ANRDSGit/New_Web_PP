@@ -59,9 +59,9 @@ const InstructorDetailsMain = () => {
                                 <li>Email:<em>{instructor.email}</em> </li>
                                 <li className="social">
                                     Follow: <em>
-                                        <Link to="#"><span aria-hidden="true" className="social_facebook"></span></Link>
-                                        <Link to="#"><span aria-hidden="true" className="social_twitter"></span></Link>
-                                        <Link to="#"><span aria-hidden="true" className="social_linkedin"></span></Link>
+                                        <Link to="https://www.facebook.com/"><span aria-hidden="true" className="social_facebook"></span></Link>
+                                        <Link to="https://x.com/"><span aria-hidden="true" className="social_twitter"></span></Link>
+                                        <Link to="https://lk.linkedin.com/"><span aria-hidden="true" className="social_linkedin"></span></Link>
                                     </em>
                                 </li>
                             </ul>

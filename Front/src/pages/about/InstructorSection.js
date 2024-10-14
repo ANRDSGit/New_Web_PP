@@ -12,8 +12,8 @@ const Instructor = () => {
                     <div className="col-lg-6 col-md-4 col-sm-6">
                         <div className="instructor__content instructor__content-one">
                             <div className="instructors_lefts">
-                                <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Course Instructors</h6>
-                                <h2 className="wow animate__fadeInUp" data-wow-duration="0.5s">Meet our <br/> Class Instructors</h2>
+                                <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Patient Pulse</h6>
+                                <h2 className="wow animate__fadeInUp" data-wow-duration="0.5s">Meet our <br/> Team</h2>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@ const Instructor = () => {
                             </div>
                         </div>
                     )
-                    }).slice(8, 14)}
+                    }).slice(8, 10)}
                 </div>
             </div>
         </div>

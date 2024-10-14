@@ -32,7 +32,7 @@ const InstructorMain = () => {
                             </div>
                         </div>
                         )
-                        }).slice(0, 8)}
+                        }).slice(0, 3)}
                     </div>
                 </div>
             </div>   
