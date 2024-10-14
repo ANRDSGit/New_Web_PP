@@ -11,15 +11,15 @@ const ContactInfo = (props) => {
         <ul className="address-sec">
             <li>
                 <em className="icon"><img src={infoImg1} alt="image" /></em>
-                <span className="text"><em>Address</em> 1800 Abbot Kinney Blvd. Unit D<br/> & E Venice</span>
+                <span className="text"><em>Address</em> Ranawiru Wasantha Lankathilaka<br/>Mawatha, Duwa Road,<br/>Panadura </span>
             </li>
             <li>
                 <em className="icon"><img src={infoImg2} alt="image" /></em>
-                <span className="text"><em>Contact</em> <a href="#">Mobile: (+88) - 1990 - 6886</a> <a href="#">Mail: contact@echooling.com</a></span>
+                <span className="text"><em>Contact</em> <a href="#">Mobile: +(94) 76 647 4436</a> <a href="#">Mail: patientpulseinfo@gmail.com</a></span>
             </li>
             <li>
                 <em className="icon"><img src={infoImg3} alt="image" /></em>
-                <span className="text"><em>Hour of operation</em> Monday - Friday: 09:00 - 20:00 <br/>Sunday & Junday: 10:30 - 22:00</span>
+                <span className="text"><em>Hour of Open</em> Monday - Friday: 16:00 - 21:00 <br/>Saturday: 10:30 - 16:00 <br/>Sunday & Poya Day: Closed</span>
             </li>
         </ul>
     );
