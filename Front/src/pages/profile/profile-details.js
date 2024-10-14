@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Breadcrumb from '../../components/Breadcrumb';
-import InstructorDetailsMain from './InstructorDetailsMain';
+import ProfileDetailsMain from './ProfileDetailsMain';
 import ScrollToTop from '../../components/ScrollTop';
 
 import Logo from '../../assets/images/logos/logo2.png';
@@ -24,7 +24,7 @@ const InstructorDetails = () => {
                         pageTitle="Profile"
                     />
 
-                    <InstructorDetailsMain />
+                    <ProfileDetailsMain />
 
                     {/* scrolltop-start */}
                     <ScrollToTop />

@@ -9,7 +9,7 @@ const SECRET_KEY = "secret"; // Use a strong, consistent secret key
 
 // Patient Signup Route
 router.post('/signup', async (req, res) => {
-  const { name, age, gender, bloodGroup,number,email, password } = req.body;
+  const { name, dob, gender, bloodGroup,number,email, password } = req.body;
 
   try {
     // Check if patient already exists
@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
 
     // Hash password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
-    patient = new Patient({ name, age, gender, bloodGroup,number,email, password: hashedPassword });
+    patient = new Patient({ name, dob, gender, bloodGroup,number,email, password: hashedPassword });
     await patient.save();
     res.status(201).send('Account created successfully');
   } catch (error) {
@@ -28,16 +28,16 @@ router.post('/signup', async (req, res) => {
 
 // Login Route
 router.post('/login', async (req, res) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Check if patient exists
-    let patient = await Patient.findOne({ name });
-    if (!patient) return res.status(400).send('Invalid name or password');
+    let patient = await Patient.findOne({ email });
+    if (!patient) return res.status(400).send('Invalid Email or password');
 
     // Check password
     const isMatch = await bcrypt.compare(password, patient.password);
-    if (!isMatch) return res.status(400).send('Invalid name or password');
+    if (!isMatch) return res.status(400).send('Invalid Email or password');
 
     // Generate JWT and send it
     const token = jwt.sign({ id: patient._id, name: patient.name }, SECRET_KEY, { expiresIn: '1h' });

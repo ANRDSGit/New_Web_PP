@@ -8,7 +8,7 @@ app.use(cors());
 app.use(bodyParser.json()); // To parse JSON data from requests
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://anrds:1234@cluster0.iowtq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://anrdsgit:npn123@cluster0.zploe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log(err));
 

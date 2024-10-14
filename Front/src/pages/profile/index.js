@@ -1,15 +1,13 @@
 import React from 'react';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import FooterTwo from '../../components/Footer/FooterTwo';
 import Breadcrumb from '../../components/Breadcrumb';
-import SignupMain from './SignupMain';
+import ProfileMain from './ProfileMain';
 import ScrollToTop from '../../components/ScrollTop';
 
 import Logo from '../../assets/images/logos/logo2.png';
 
-
-const Signup = () => {
-
+const Instructor = () => {
     return (
         <>
             <Header
@@ -22,10 +20,10 @@ const Signup = () => {
             <div class="react-wrapper">
                 <div class="react-wrapper-inner">
                     <Breadcrumb
-                        pageTitle="Signup"
+                        pageTitle="Instructor"
                     />
 
-                    <SignupMain />
+                    <ProfileMain />
 
                     {/* scrolltop-start */}
                     <ScrollToTop />
@@ -33,12 +31,12 @@ const Signup = () => {
                 </div>
             </div>
 
-            <Footer />
+            <FooterTwo />
 
         </>
     );
 }
 
 
-export default Signup;
+export default Instructor;
 
