@@ -31,7 +31,7 @@ const HomeBanner = () => {
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div className="hero4__content">
                                 <h1 className="hero4__title wow animate__fadeInUp" data-wow-duration="0.3s">Welcome to Our Ayurvedic Medical Clinic</h1>
-                                <p className="hero4__paragraph wow animate__fadeInUp" data-wow-duration="0.5s">At our Ayurvedic clinic, we offer holistic health care based on Ayurveda's natural healing principles. Our expert practitioners provide personalized treatments to restore balance in the body, mind, and soul, helping you manage stress, improve well-being, or address specific health concerns.</p>                                    
+                                <h4 className="hero4__paragraph wow animate__fadeInUp" data-wow-duration="0.5s">"The natural healing force within each of us is the greatest force in getting well."<br/> - Hippocrates, Father of Medicine -</h4>                                    
                                 <div className="event__video-btn--plays">
                                     <Link to="/course/1" className="hero4-btn wow animate__fadeInUp" data-wow-duration="0.7s">Book an Appointment</Link>
                                     <Link to="#" onClick={() => { openModal(); }} className="event__videos custom-popup wow animate__fadeInUp" data-wow-duration="0.9s">

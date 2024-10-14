@@ -20,11 +20,11 @@ const About = () => {
                     <div class="col-lg-6">
                         <div class="about__content">
                             <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">About Us</h6>
-                            <h2 class="about__title wow animate__fadeInUp" data-wow-duration="0.5s">The quickest and Effected way for Learing</h2>
-                            <p class="about__paragraph wow animate__fadeInUp" data-wow-duration="0.7s">Why I say old chap that is spiffing in my flat such a fibber mufty mush, porkies barney pukka only a quid a what a load of rubbish good time.</p>
+                            <h2 class="about__title wow animate__fadeInUp" data-wow-duration="0.5s">Your Path to Holistic Healing</h2>
+                            <p class="about__paragraph wow animate__fadeInUp" data-wow-duration="0.7s">At our Ayurvedic clinic, we focus on holistic health using time-tested, natural healing methods rooted in the principles of Ayurveda. Our expert team of practitioners is dedicated to providing personalized care that brings balance to your body, mind, and soul. Whether you are looking to manage stress, improve your overall well-being, or treat a specific condition, we are here to help you achieve optimal health.</p>
                             <ul>
-                                <li className="wow animate__fadeInUp" data-wow-duration="0.3s"><i class="icon_check"></i> Access more then 100K online courses</li>
-                                <li className="wow animate__fadeInUp" data-wow-duration="0.5s"><i class="icon_check"></i> Upskill your organization. </li>
+                                <li className="wow animate__fadeInUp" data-wow-duration="0.3s"><i class="icon_check"></i> Natural, Safe, and Effective Remedies. </li>
+                                <li className="wow animate__fadeInUp" data-wow-duration="0.5s"><i class="icon_check"></i> Expert Team of Practitioners. </li>
                             </ul>
                             <div class="about__btn wow animate__fadeInUp" data-wow-duration="0.7s">
                                 <Link to="/about"> Read More </Link>
