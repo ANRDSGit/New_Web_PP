@@ -26,11 +26,7 @@ const LoginMain = () => {
                                         <p>Forget password?</p>
                                     </div>
                                     <button type="submit" id="button" name="submit">LogIn <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
-                                    <span className="back-or"> ........ or Login with ........ </span>
-                                    <ul className="social-links">
-                                        <li><a href="#"><span aria-hidden="true" className="social_facebook"></span></a></li>
-                                        <li><a href="#"><span aria-hidden="true" className="social_twitter"></span></a></li>
-                                    </ul>                                        
+                                                                           
                                 </form>
                             </div>
                         </div>
