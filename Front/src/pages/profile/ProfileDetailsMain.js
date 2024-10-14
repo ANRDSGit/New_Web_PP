@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
 
@@ -35,21 +35,28 @@ const InstructorDetailsMain = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token'); // Remove token to logout
-        navigate('/login'); // Redirect to home page
+        navigate('/login'); // Redirect to login page
     };
 
     const handleDeleteAccount = async () => {
         try {
-          const token = localStorage.getItem('token');
-          await axios.delete('http://localhost:7000/api/auth/delete-account', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          localStorage.removeItem('token'); // Remove token after account deletion
-          navigate('/Signup'); // Redirect to home page
+            const token = localStorage.getItem('token');
+            // Call the request-delete-account route instead of directly deleting
+            const response = await axios.post(
+                'http://localhost:7000/api/auth/request-delete-account', 
+                {}, 
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+            // Notify the user that an email has been sent for confirmation
+            alert('A confirmation email has been sent to your email address. Please check your inbox to confirm account deletion.');
+            navigate('/signup');
         } catch (error) {
-          console.error('Error deleting account', error);
+            console.error('Error requesting account deletion', error);
+            alert('Failed to request account deletion. Please try again.');
         }
-      };
+    };
 
     const counters = [
         {
@@ -138,7 +145,6 @@ const InstructorDetailsMain = () => {
                                 <button
                                     className="follows"
                                     onClick={handleLogout} // Use button for logout action
-
                                 >
                                     LogOut
                                     <svg
@@ -156,8 +162,7 @@ const InstructorDetailsMain = () => {
 
                                 <button
                                     className="follows"
-                                    onClick={handleDeleteAccount} // Use button for logout action
-
+                                    onClick={handleDeleteAccount} // Trigger delete confirmation request
                                 >
                                     Delete Profile
                                     <svg
@@ -173,8 +178,6 @@ const InstructorDetailsMain = () => {
                                     </svg>
                                 </button>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ const patientSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true }, // Email should be unique
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  isVerified: { type: Boolean, default: false }
 });
 
 // Virtual field to calculate age from date of birth

@@ -46,7 +46,7 @@ const SignupMain = () => {
         try {
             // Send data to your backend (MongoDB)
             await axios.post('http://localhost:7000/api/auth/signup', formData);
-
+            alert('A verification email has been sent to your email address.');
             // Redirect to login page after successful sign up
             navigate('/login');
         } catch (error) {
