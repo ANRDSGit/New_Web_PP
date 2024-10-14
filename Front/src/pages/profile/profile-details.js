@@ -1,15 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
-import FooterTwo from '../../components/Footer/FooterTwo';
+import Footer from '../../components/Footer';
 import Breadcrumb from '../../components/Breadcrumb';
-import ProfileMain from './ProfileMain';
+import InstructorDetailsMain from './ProfileDetailsMain';
 import ScrollToTop from '../../components/ScrollTop';
 
 import Logo from '../../assets/images/logos/logo2.png';
 
-const Instructor = () => {
+const InstructorDetails = () => {
+
     return (
-        <>
+        <body className="profile-page">
             <Header
                 parentMenu='page'
                 menuCategoryEnable='enable'
@@ -20,10 +21,10 @@ const Instructor = () => {
             <div class="react-wrapper">
                 <div class="react-wrapper-inner">
                     <Breadcrumb
-                        pageTitle="Doctors"
+                        pageTitle="Profile"
                     />
 
-                    <ProfileMain />
+                    <InstructorDetailsMain />
 
                     {/* scrolltop-start */}
                     <ScrollToTop />
@@ -31,12 +32,12 @@ const Instructor = () => {
                 </div>
             </div>
 
-            <FooterTwo />
+            <Footer />
 
-        </>
+        </body>
     );
 }
 
 
-export default Instructor;
+export default InstructorDetails;
 
