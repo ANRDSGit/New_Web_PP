@@ -12,8 +12,8 @@ import Course from '../pages/course';
 import CourseList from '../pages/course/course-list';
 import CourseDetails from '../pages/course/course-details';
 import CourseSidebar from '../pages/course/course-sidebar';
-import Profile from '../pages/profile';
-import ProfileDetails from '../pages/profile/profile-details';
+import Instructor from '../pages/profile';
+
 import Event from '../pages/event';
 import EventSidebar from '../pages/event/event-sidebar';
 import EventDetails from '../pages/event/event-details';
@@ -56,8 +56,7 @@ const App = () => {
                     <Route path="/event-sidebar" element={<EventSidebar />} />
                     <Route path="/blog" exact element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetails />} />
-                    <Route path="/profile" exact element={<Profile />} />
-                    <Route path="/profile/:id" exact element={<ProfileDetails />} />
+                    <Route path="/instructor" exact element={<Instructor />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/contact" element={<Contact />} />

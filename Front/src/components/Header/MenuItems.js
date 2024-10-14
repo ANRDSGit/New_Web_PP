@@ -57,10 +57,9 @@ const MenuItems = (props) => {
     return (
         <>
             <li className={parentMenu === 'home' ? 'has-sub menu-active' : 'has-sub'}>
-                <Link to="/" className={home} onClick={() => { openMobileMenu('home'); }}>
+                <Link to="/" className={home ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('home'); }}>
                     Home
                 </Link>
-                
             </li>
             <li className={parentMenu === 'page' || parentMenu === 'event'  ? 'has-sub menu-active' : 'has-sub'}>
                 <Link to="#" className={ page ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('page'); }}>
@@ -70,6 +69,9 @@ const MenuItems = (props) => {
                 <ul className={page ? "sub-menu sub-menu-open" : "sub-menu"}>
                     <li className={location.pathname === '/about' ? 'menu-active' : ''}>
                         <Link to="/about">About</Link>
+                    </li>
+                    <li className={location.pathname === "/instructor" ? "menu-active" : ""}>
+                        <Link to="/instructor">Instructor</Link>
                     </li>
                     <li className={postURL[1] === "instructor" && pathLength > 2 ? "menu-active" : ""}>
                         <Link to="/profile/1">Profile</Link>
