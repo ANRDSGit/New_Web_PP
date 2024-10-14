@@ -19,7 +19,7 @@ const Video = () => {
     const tabStyle = 'nav nav-tabs';
 
     return (
-        <div className="high_quality-section pt---110 pb---120">
+        <div className="high_quality-section pt---20 pb---120">
             <div className="container">
                 <div className="react__title__section-all">
                     <div className="row">

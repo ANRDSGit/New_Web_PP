@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Patient Pulse API');
 });
 
-const PORT = 7001;
+const PORT = 7000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -3,7 +3,6 @@ import About from './AboutSection';
 import Topics from './TopicsSection';
 import HomeBanner from './BannerSection';
 import Video from './VideoSection';
-import Course from './CourseSection';
 import Testimonial from './TestimonialSection';
 import ScrollToTop from '../../components/ScrollTop';
 
@@ -23,10 +22,6 @@ const HomeThreeMain =() => {
 						{/* About-area-start */}
 						<About />
 						{/* About-area-end */}
-
-						{/* Course-area-start */}
-						<Course />
-						{/* Course-area-end */}
 
 						{/* Video-area-start */}
 						<Video />

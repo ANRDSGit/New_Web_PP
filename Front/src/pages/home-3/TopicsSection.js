@@ -13,7 +13,7 @@ const Topics = () => {
                 <div class="react__title__section react__title__section-all">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s"> # </h6>
+                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s"> Our Qualities </h6>
                             <h2 class="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s"> Why Choose Us? </h2>
                         </div>
                     </div>
@@ -22,7 +22,7 @@ const Topics = () => {
                     <div class="col-md-4 wow animate__fadeInUp" data-wow-duration="0.3s">
                         <div class="item__inner">         
                             <div class="icon">
-                                <img src={icon1} alt="Icon image" />
+                                <img src={icon3} alt="Icon image" />
                             </div>
                             <div class="react-content">
                                 <h3 class="react-title"><Link to="/about">Holistic Ayurvedic Care</Link></h3>
@@ -34,7 +34,7 @@ const Topics = () => {
                     <div class="col-md-4 wow animate__fadeInUp" data-wow-duration="0.5s">
                         <div class="item__inner">                                    
                             <div class="icon">
-                                <img src={icon2} alt="Icon image" />
+                                <img src={icon3} alt="Icon image" />
                             </div>
                             <div class="react-content">
                                 <h3 class="react-title"><Link to="/about">Natural Healing Methods</Link></h3>
