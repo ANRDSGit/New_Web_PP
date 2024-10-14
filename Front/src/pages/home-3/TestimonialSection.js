@@ -46,27 +46,27 @@ const Testimonial = () => {
 
     const counters = [
         {
-            countNum: 28,
-            countTitle: 'Foreign followers',
-            countSubtext: 'k',
+            countNum: 350,
+            countTitle: 'Total Case Handled',
+            countSubtext: '',
             countIcon: countIcon1,
         },
         {
-            countNum: 10,
-            countTitle: 'Classes complete',
-            countSubtext: 'k',
+            countNum: 500,
+            countTitle: 'Happy Patients',
+            countSubtext: '',
             countIcon: countIcon2,
         },
         {
-            countNum : 208,
-            countTitle: 'Students enrolled',
-            countSubtext: 'k',
+            countNum : 30,
+            countTitle: 'Registered Patients',
+            countSubtext: '',
             countIcon: countIcon3,
         },
         {
-            countNum : 54,
-            countTitle: 'Certified Teachers',
-            countSubtext: 'k',
+            countNum : 10,
+            countTitle: 'Years of Experience',
+            countSubtext: '',
             countIcon: countIcon4,
         }
 
@@ -79,8 +79,8 @@ const Testimonial = () => {
                 <div className="react__title__section-all pb---30">
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Student Satisfaction</h6>
-                            <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s">Student Community <br/>Feedback</h2>
+                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Patient Satisfaction</h6>
+                            <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s">Patient Feedback</h2>
                         </div>                                
                     </div>                            
                 </div>                       
@@ -106,8 +106,8 @@ const Testimonial = () => {
                                     <img src={testiImg1} alt="image" />
                                 </div>
                                 <div className="text">
-                                    <h4>Pelican Steve</h4>
-                                    <p>Student</p>
+                                    <h4>Kasun Perera</h4>
+                                    <p>Journalist</p>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ const Testimonial = () => {
                                         <em className="icon_star"></em>
                                         <em className="icon_star"></em>
                                         <em className="icon_star"></em>
-                                        <em className="icon_star_alt"></em>
+                                        <em className="icon_star"></em>
                                         <span> (18 Reviews) </span>
                                     </div>
                                     <div className="parag">We are a Portsmouth based web design and e-marketing agency. We understand how important a website is to any business, big or small. Your online presence is now more important than ever before.</div>
@@ -131,8 +131,8 @@ const Testimonial = () => {
                                     <img src={testiImg2} alt="image" />
                                 </div>
                                 <div className="text">
-                                    <h4>Chase Kroll</h4>
-                                    <p>IT Specialist</p>
+                                    <h4>Hansana Dhanuri</h4>
+                                    <p>Teacher</p>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +143,7 @@ const Testimonial = () => {
                                         <em className="icon_star"></em>
                                         <em className="icon_star"></em>
                                         <em className="icon_star"></em>
-                                        <em className="icon_star"></em>
+                                        <em className="icon_star_alt"></em>
                                         <em className="icon_star_alt"></em>
                                         <span> (26 Reviews) </span>
                                     </div>
@@ -156,33 +156,8 @@ const Testimonial = () => {
                                     <img src={testiImg3} alt="image" />
                                 </div>
                                 <div className="text">
-                                    <h4>Jackson Pot</h4>
-                                    <p>Teacher</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="event__card">
-                            <div className="event__card--content">
-                                <div className="event__card--content-area">
-                                    <div className="testimonial__ratings">
-                                        <em className="icon_star"></em>
-                                        <em className="icon_star"></em>
-                                        <em className="icon_star"></em>
-                                        <em className="icon_star"></em>
-                                        <em className="icon_star_alt"></em>
-                                        <span> (14 Reviews) </span>
-                                    </div>
-                                    <div className="parag">We are a Portsmouth based web design and e-marketing agency. We understand how important a website is to any business, big or small. Your online presence is now more important than ever before.</div>
-                                </div>
-                                <img className="poly" src={polyImg} alt="image" />
-                            </div>
-                            <div className="author-sec">
-                                <div className="icon">
-                                    <img src={testiImg2} alt="image" />
-                                </div>
-                                <div className="text">
-                                    <h4>Pelican Steve</h4>
-                                    <p>Student</p>
+                                    <h4>Chandika Dewruwan</h4>
+                                    <p>Manager</p>
                                 </div>
                             </div>
                         </div>
