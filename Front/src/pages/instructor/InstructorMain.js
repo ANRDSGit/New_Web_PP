@@ -19,9 +19,9 @@ const InstructorMain = () => {
                                     <div className="content__hover">
                                         <p>{data.bio}</p>
                                         <ul>                                            
-                                            <li><a href="#"><span aria-hidden="true" className="social_facebook"></span></a></li>
-                                            <li><a href="#"><span aria-hidden="true" className="social_twitter"></span></a></li>
-                                            <li><a href="#"><span aria-hidden="true" className="social_linkedin"></span></a></li>
+                                            <li><a href="https://www.facebook.com/"><span aria-hidden="true" className="social_facebook"></span></a></li>
+                                            <li><a href="https://x.com/"><span aria-hidden="true" className="social_twitter"></span></a></li>
+                                            <li><a href="https://lk.linkedin.com/"><span aria-hidden="true" className="social_linkedin"></span></a></li>
                                         </ul>
                                     </div>
                                 </div>                                    

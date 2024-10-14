@@ -52,14 +52,14 @@ const Testimonial = () => {
             countIcon: countIcon1,
         },
         {
-            countNum: 10,
-            countTitle: 'Classes complete',
-            countSubtext: 'k',
+            countNum: 500,
+            countTitle: 'Happy Patients',
+            countSubtext: '',
             countIcon: countIcon2,
         },
         {
             countNum : 30,
-            countTitle: 'Happy Patients',
+            countTitle: 'Registered Patients',
             countSubtext: '',
             countIcon: countIcon3,
         },
