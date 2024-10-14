@@ -15,7 +15,7 @@ const ContactInfo = (props) => {
             </li>
             <li>
                 <em className="icon"><img src={infoImg2} alt="image" /></em>
-                <span className="text"><em>Contact</em> <a href="#">Mobile: +(94) 76 647 4436</a> <a href="#">Mail: patientpulseinfo@gmail.com</a></span>
+                <span className="text"><em>Contact</em> <a href="tel:+(94)766474436">Mobile: +(94) 76 647 4436</a> <a href="mailto:patientpulseinfo@gmail.com">Mail: patientpulseinfo@gmail.com</a></span>
             </li>
             <li>
                 <em className="icon"><img src={infoImg3} alt="image" /></em>
