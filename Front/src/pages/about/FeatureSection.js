@@ -14,8 +14,8 @@ const Feature = () => {
             <div className="react__title__section react__title__section-all">
                 <div className="row">
                     <div className="col-md-12 text-center">
-                        <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Echooling available courses</h6>
-                        <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s"> Online Coaching Lessons For <br/>Remote Learning </h2>
+                        <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Our Qualities</h6>
+                        <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s"> Why Choose Us? </h2>
                     </div>                                
                 </div>                            
             </div>
@@ -24,13 +24,12 @@ const Feature = () => {
                     <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.3s">
                         <div className="item__inner">                                    
                             <div className="icon">
-                                <img src={icon1} alt="Icon image" />
+                                <img src={icon2} alt="Icon image" />
                             </div>
                             <div className="react-content">
-                                <h3 className="react-title"><a href="coureses-grid.html">Accredited Campus</a></h3>
-                                <p>Nulla porttitor accumsan tincidunt. vamus <br/>magna justo, lacinia eget consectetur sed, <br/>convallis at tellus.</p>
-                                <a href="#"> Learn More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                            </div>                                    
+                                <h3 className="react-title"><a href="coureses-grid.html">Ancient Healing Techniques</a></h3>
+                                <p>Our clinic is rooted in the ancient principles of Ayurveda, offering time-tested treatments that promote holistic healing and balance.</p>
+                                </div>                                    
                         </div>
                     </div>
                     <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.5s">
@@ -39,22 +38,53 @@ const Feature = () => {
                                 <img src={icon2} alt="Icon image" />
                             </div>
                             <div className="react-content">
-                                <h3 className="react-title"><a href="coureses-grid.html">Best Quality Graduate</a></h3>
-                                <p>Nulla porttitor accumsan tincidunt. vamus <br/>magna justo, lacinia eget consectetur sed, <br/>convallis at tellus.</p>
-                                <a href="#"> Learn More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                                <h3 className="react-title"><a href="coureses-grid.html">Personalized Care</a></h3>
+                                <p>We believe that every individual is unique, and so are their health needs. Our Ayurvedic treatments are tailored to each patient’s specific body constitution and imbalances.</p>
                             </div>                                    
                         </div>
                     </div>
                     <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.7s">
                         <div className="item__inner">                                    
                             <div className="icon">
-                                <img src={icon3} alt="Icon image" />
+                                <img src={icon2} alt="Icon image" />
                             </div>
                             <div className="react-content">
-                                <h3 className="react-title"><a href="coureses-grid.html">Inspiring Student Life</a></h3>
-                                <p>Nulla porttitor accumsan tincidunt. vamus <br/>magna justo, lacinia eget consectetur sed, <br/>convallis at tellus.</p>
-                                <a href="#"> Learn More <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-                            </div>                                    
+                                <h3 className="react-title"><a href="coureses-grid.html">Natural Remedies</a></h3>
+                                <p>We use only natural herbs and oils in our treatments, ensuring that your healing process is pure, organic, and free from harmful chemicals.</p>
+                               </div>                                    
+                        </div>
+                    </div>
+                    <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.7s">
+                        <div className="item__inner">                                    
+                            <div className="icon">
+                                <img src={icon2} alt="Icon image" />
+                            </div>
+                            <div className="react-content">
+                                <h3 className="react-title"><a href="coureses-grid.html">Experienced Practitioners</a></h3>
+                                <p>Our team consists of highly qualified Ayurvedic doctors and therapists, with years of experience in delivering effective treatments and therapies.</p>
+                               </div>                                    
+                        </div>
+                    </div>
+                    <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.7s">
+                        <div className="item__inner">                                    
+                            <div className="icon">
+                                <img src={icon2} alt="Icon image" />
+                            </div>
+                            <div className="react-content">
+                                <h3 className="react-title"><a href="coureses-grid.html">Focus on Prevention</a></h3>
+                                <p>Ayurveda not only addresses existing ailments but also focuses on disease prevention and maintaining balance in life through diet and lifestyle adjustments.</p>
+                               </div>                                    
+                        </div>
+                    </div>
+                    <div className="col-md-4 wow animate__fadeInUp" data-wow-duration="0.7s">
+                        <div className="item__inner">                                    
+                            <div className="icon">
+                                <img src={icon2} alt="Icon image" />
+                            </div>
+                            <div className="react-content">
+                                <h3 className="react-title"><a href="coureses-grid.html">Holistic Approach</a></h3>
+                                <p>Our treatments focus on healing the mind, body, and spirit, providing you with a complete wellness experience.</p>
+                               </div>                                    
                         </div>
                     </div>                            
                 </div>

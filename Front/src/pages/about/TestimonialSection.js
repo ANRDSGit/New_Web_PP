@@ -1,50 +1,45 @@
-import React, { useState } from "react";
-import Slider from "react-slick";
-import CountUp from 'react-countup';
-import VisibilitySensor from 'react-visibility-sensor'; 
+import React from "react";
 
-import polyImg from '../../assets/images/testimonial/poly.png'
-import testiImg1 from '../../assets/images/testimonial/1.png'
-import testiImg2 from '../../assets/images/testimonial/2.png'
-import testiImg3 from '../../assets/images/testimonial/3.png'
-
-import countIcon1 from '../../assets/images/counter/1.png'
-import countIcon2 from '../../assets/images/counter/2.png'
-import countIcon3 from '../../assets/images/counter/3.png'
-import countIcon4 from '../../assets/images/counter/4.png'
+import galleryImg1 from '../../assets/images/gallery/img1.jpg'; // Add your gallery images here
+import galleryImg2 from '../../assets/images/gallery/img2.jpg';
+import galleryImg3 from '../../assets/images/gallery/img3.jpg';
+import galleryImg4 from '../../assets/images/gallery/img4.jpg';
+import galleryImg5 from '../../assets/images/gallery/img5.jpg';
+import galleryImg6 from '../../assets/images/gallery/img6.jpg';
 
 const Testimonial = () => {
 
+    // Image array for the photo gallery
+    const galleryImages = [
+        { id: 1, src: galleryImg1, alt: "Gallery Image 1" },
+        { id: 2, src: galleryImg2, alt: "Gallery Image 2" },
+        { id: 3, src: galleryImg3, alt: "Gallery Image 3" },
+        { id: 4, src: galleryImg4, alt: "Gallery Image 4" },
+        { id: 5, src: galleryImg5, alt: "Gallery Image 5" },
+        { id: 6, src: galleryImg6, alt: "Gallery Image 6" },
+    ];
 
-    const sliderSettings = {
-        dots: false,
-        arrows: true,
-        infinite: true,
-        margin: 0,
-        centerMode: false,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    arrows: true,
-                    slidesToShow: 2,
-                }
-            },
-            {
-                breakpoint: 767,
-                settings: {
-                    arrows: false,
-                    slidesToShow: 1,
-                }
-            }
-        ]
-    };
+    return (
+        <div className="react_populars_topics react_populars_topics2 react_populars_topics_about pb---80">
+            <div className="react__title__section react__title__section-all">
+                <div className="row">
+                    <div className="col-md-12 text-center">
+                        <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Patient Pulse</h6>
+                        <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.5s">Photo Gallery</h2>
+                    </div>
+                </div>
 
-    // 
-    
-    
+                {/* Photo Gallery */}
+                <div className="gallery-grid">
+                    {galleryImages.map((image) => (
+                        <div key={image.id} className="gallery-item">
+                            <img src={image.src} alt={image.alt} className="gallery-image" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default Testimonial;

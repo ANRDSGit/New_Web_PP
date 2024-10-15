@@ -24,8 +24,8 @@ const Video = () => {
                 <div className="react__title__section-all">
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Live Class</h6>
-                            <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.3s">High quality video,audio & live class</h2>
+                            <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">Patient Pulse Ayurvedic Medical Center</h6>
+                            <h2 className="react__tittle wow animate__fadeInUp" data-wow-duration="0.3s">High Quality Video</h2>
                         </div>                                
                     </div>                            
                 </div>
@@ -37,48 +37,47 @@ const Video = () => {
                             <img className="shape__3" src={shapeImg3} alt="image" />
                             <TabPanel>
                                 <div className="tab-pane active" id="home">
-                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/e5Hc2B50Z7c" title="YouTube video player" allow="accelerometer"></iframe>
+                                <iframe width="970" height="576" src="https://www.youtube.com/embed/jKanQuHUzJM?si=5SMMjUo8ew5jWjFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                 </div>
                             </TabPanel>
                             <TabPanel>
                                 <div className="tab-pane" id="profile">
-                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/e5Hc2B50Z7c" title="YouTube video player" allow="accelerometer"></iframe>
-                                </div>
+                                <iframe width="970" height="576" src="https://www.youtube.com/embed/4jn77iLBtrs?si=u_ov0HGdIYwA4yxv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
                             </TabPanel>
                             <TabPanel>
                                 <div className="tab-pane" id="messages">
-                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/e5Hc2B50Z7c" title="YouTube video player" allow="accelerometer"></iframe>
+                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/ZG5DFPSKXmI?si=gUg-RqCm3ba-1h6f" title="YouTube video player" allow="accelerometer"></iframe>
                                 </div>
                             </TabPanel>
                             <TabPanel>
                                 <div className="tab-pane" id="settings">
-                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/e5Hc2B50Z7c" title="YouTube video player" allow="accelerometer"></iframe>
+                                    <iframe width="970" height="576" src="https://www.youtube.com/embed/miRMPPJ2hEQ?si=ZwGHDZi0hC3dwxhE" title="YouTube video player" allow="accelerometer"></iframe>
                                 </div>
                             </TabPanel>
                         </div>
                         <TabList className={tabStyle}>
                             <Tab>
                                 <button>
-                                    <em className="icon"><img src={tabImg4} alt="image" /></em>
-                                    <em className="text">Audio Classes</em>
-                                </button>
-                            </Tab>
-                            <Tab>
-                                <button>
-                                    <em className="icon"><img src={tabImg2} alt="image" /></em>
-                                    <em className="text">Live Classes</em>
+                                    <em className="icon"><img src={tabImg1} alt="image" /></em>
+                                    <em className="text">Introduction</em>
                                 </button>
                             </Tab>
                             <Tab>
                                 <button>
                                     <em className="icon"><img src={tabImg1} alt="image" /></em>
-                                    <em className="text">Recorded Class</em>
+                                    <em className="text">Logo</em>
                                 </button>
                             </Tab>
                             <Tab>
                                 <button>
-                                    <em className="icon"><img src={tabImg3} alt="image" /></em>
-                                    <em className="text">Educator Support</em>
+                                    <em className="icon"><img src={tabImg1} alt="image" /></em>
+                                    <em className="text">Covid 19</em>
+                                </button>
+                            </Tab>
+                            <Tab>
+                                <button>
+                                    <em className="icon"><img src={tabImg1} alt="image" /></em>
+                                    <em className="text">Gastritis</em>
                                 </button>
                             </Tab>
                         </TabList>

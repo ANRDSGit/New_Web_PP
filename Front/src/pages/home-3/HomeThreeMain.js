@@ -15,10 +15,6 @@ const HomeThreeMain =() => {
 						<HomeBanner />
 						{/* BannerSection-start */}
 
-						{/* Topics-area-start */}
-						<Topics />
-						{/* Topics-area-end */}
-
 						{/* About-area-start */}
 						<About />
 						{/* About-area-end */}
@@ -26,6 +22,10 @@ const HomeThreeMain =() => {
 						{/* Video-area-start */}
 						<Video />
 						{/* Video-area-end */}
+
+						{/* Topics-area-start */}
+						<Topics />
+						{/* Topics-area-end */}
 
 						{/* testmonial-area-start */}
 						<Testimonial />

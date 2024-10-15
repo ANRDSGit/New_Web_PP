@@ -97,7 +97,7 @@ const Testimonial = () => {
                                         <em className="icon_star_alt"></em>
                                         <span> (14 Reviews) </span>
                                     </div>
-                                    <div className="parag">We are a Portsmouth based web design and e-marketing agency. We understand how important a website is to any business, big or small. Your online presence is now more important than ever before.</div>
+                                    <div className="parag">I was amazed by the level of personalized care at Patient Pulse. They took the time to understand my health history and lifestyle before recommending treatments. I now feel healthier and more balanced than I have in years.</div>
                                 </div>
                                 <img className="poly" src={polyImg} alt="image" />
                             </div>
@@ -122,7 +122,7 @@ const Testimonial = () => {
                                         <em className="icon_star"></em>
                                         <span> (18 Reviews) </span>
                                     </div>
-                                    <div className="parag">We are a Portsmouth based web design and e-marketing agency. We understand how important a website is to any business, big or small. Your online presence is now more important than ever before.</div>
+                                    <div className="parag">After suffering from joint pain for years, I decided to try Ayurvedic treatment at Patient Pulse. The team provided a detailed plan, and within a few weeks, I experienced significant relief without relying on medication. Their expertise in natural healing is truly remarkable.</div>
                                 </div>
                                 <img className="poly" src={polyImg} alt="image" />
                             </div>
@@ -147,7 +147,7 @@ const Testimonial = () => {
                                         <em className="icon_star_alt"></em>
                                         <span> (26 Reviews) </span>
                                     </div>
-                                    <div className="parag">We are a Portsmouth based web design and e-marketing agency. We understand how important a website is to any business, big or small. Your online presence is now more important than ever before.</div>
+                                    <div className="parag">I've struggled with digestive issues for a long time, and nothing seemed to help until I visited Patient Pulse. Their natural remedies and dietary guidance have made a huge difference. I finally feel like my body is in harmony again.</div>
                                 </div>
                                 <img className="poly" src={polyImg} alt="image" />
                             </div>

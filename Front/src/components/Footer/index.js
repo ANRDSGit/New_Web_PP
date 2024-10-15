@@ -17,8 +17,7 @@ const Footer = (props) => {
                                     <div className="footer-logo white">
                                         <Link to="/" className="logo-text"><img src={footerLogo ? footerLogo : Logo} alt="Footer Logo" /></Link>
                                     </div>
-                                    <h5 className="footer-subtitle">There are course and event custom <br/>
-                                    post types so you can easily create and<br/> manage course, events.</h5>
+                                    <h5 className="footer-subtitle">Providing excellent medical care since 2014. Our commitment to your health and well-being is unmatched.</h5>
                                     <ul className="footer-address">
                                         <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><a href="tel:+(402)76244183"> +(402) 762 441 83 </a></li>
                                         <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><a href="mailto:info@yourdmain.com"> patientpulseinfo@gmail.com </a></li>
@@ -27,30 +26,27 @@ const Footer = (props) => {
                             </div>
                             <div className="col-lg-3 md-mb-30">
                                 <div className="footer-widget footer-widget-2">
-                                    <h3 className="footer-title">About Us</h3>
+                                    <h3 className="footer-title">Quick Links</h3>
                                     <div className="footer-menu">
                                         <ul>
+                                            <li><Link to="/home-3">Home</Link></li>
+                                            <li><Link to="#">Appointments</Link></li>
+                                            <li><Link to="#">Conference</Link></li>
                                             <li><Link to="/about">About</Link></li>
-                                            <li><Link to="/course">Courses</Link></li>
-                                            <li><Link to="/event">Events</Link></li>
-                                            <li><Link to="#">Career</Link></li>
-                                            <li><Link to="/profile">Become a Teacher</Link></li>
                                             <li><Link to="/contact">Contact</Link></li>
+                                            <li><Link to="/login">Login</Link></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-3 md-mb-30">
                                 <div className="footer-widget footer-widget-3">
-                                    <h3 className="footer-title">Useful Links</h3>
+                                    <h3 className="footer-title">Open Hours</h3>
                                     <div className="footer-menu">
                                         <ul>
-                                            <li><Link to="#">Browse Library</Link></li>
-                                            <li><Link to="#">Library</Link></li>
-                                            <li><Link to="#">Partners</Link></li>
-                                            <li><Link to="/blog">News & Blog</Link></li>
-                                            <li><Link to="#">FAQ</Link></li>
-                                            <li><Link to="#">Tutorials</Link></li>
+                                            <li><Link to="#">Monday - Friday: 16:00 - 21:00</Link></li>
+                                            <li><Link to="#">Saturday: 10:30 - 16:00</Link></li>
+                                            <li><Link to="#">Sunday & Poya Day - Closed</Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -75,7 +71,7 @@ const Footer = (props) => {
 
                 <div className="copyright">  
                     <div className="container">                  
-                        <div className="react-copy-left">© 2022 <Link to="/">Echooling.</Link> All Rights Reserved</div>
+                        <div className="react-copy-left">© 2024 <Link to="/">Patient Pulse.</Link> All Rights Reserved</div>
                         <div className="react-copy-right">
                             <ul className="social-links">
                                 <li className="follow">Follow us</li>
