@@ -17,7 +17,7 @@ import Event from '../pages/event';
 import EventSidebar from '../pages/event/event-sidebar';
 import EventDetails from '../pages/event/event-details';
 import Blog from '../pages/blog';
-import BlogDetails from '../pages/blog/blog-details';
+import Appointments from '../pages/Appointments/appointment-details';
 import Login from '../pages/authentication/login';
 import Signup from '../pages/authentication/signup';
 import Contact from '../pages/contact';
@@ -31,7 +31,7 @@ const App = () => {
         // Simulate data loading delay
         setTimeout(() => {
         setIsLoading(false);
-        }, 500);
+        }, 800);
     }, []);
 
     return (
@@ -54,7 +54,7 @@ const App = () => {
                     <Route path="/event/:id" element={<EventDetails />} />
                     <Route path="/event-sidebar" element={<EventSidebar />} />
                     <Route path="/blog" exact element={<Blog />} />
-                    <Route path="/blog/:id" element={<BlogDetails />} />
+                    <Route path="/appointments" element={<Appointments />} />
                     <Route path="/profile" exact element={<Patient />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />

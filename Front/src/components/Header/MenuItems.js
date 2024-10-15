@@ -1,57 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const MenuItems = (props) => {
-
     const { parentMenu } = props;
-
     const location = useLocation();
     const postURL = location.pathname.split('/');
-    const pathLength = Number(postURL.length)
+    const pathLength = Number(postURL.length);
 
-    const [home, setHome] = useState(false)
-    const [page, setPage] = useState(false)
-    const [event, setEvent] = useState(false)
-    const [course, setCourse] = useState(false)
-    const [blog, setBlog] = useState(false)
+    const [home, setHome] = useState(false);
+    const [page, setPage] = useState(false);
+    const [event, setEvent] = useState(false);
+    const [course, setCourse] = useState(false);
+    const [blog, setBlog] = useState(false);
 
-    const openMobileMenu = menu => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
+    useEffect(() => {
+        // Check if JWT token exists in localStorage to determine login status
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+    const openMobileMenu = (menu) => {
         if (menu === 'home') {
-            setHome(!home)
-            setPage(false)
-            setEvent(false)
-            setCourse(false)
-            setBlog(false)
+            setHome(!home);
+            setPage(false);
+            setEvent(false);
+            setCourse(false);
+            setBlog(false);
+        } else if (menu === 'page') {
+            setHome(false);
+            setPage(!page);
+            setEvent(false);
+            setCourse(false);
+            setBlog(false);
+        } else if (menu === 'event') {
+            setHome(false);
+            setPage(false);
+            setEvent(!event);
+            setCourse(false);
+            setBlog(false);
+        } else if (menu === 'course') {
+            setHome(false);
+            setPage(false);
+            setEvent(false);
+            setCourse(!course);
+            setBlog(false);
+        } else if (menu === 'blog') {
+            setHome(false);
+            setPage(false);
+            setEvent(false);
+            setCourse(false);
+            setBlog(!blog);
         }
-        else if (menu === 'page') {
-            setHome(false)
-            setPage(!page)
-            setEvent(false)
-            setCourse(false)
-            setBlog(false)
-        }
-        else if (menu === 'event') {
-            setHome(false)
-            setPage(false)
-            setEvent(!event)
-            setCourse(false)
-            setBlog(false)
-        }
-        else if (menu === 'course') {
-            setHome(false)
-            setPage(false)
-            setEvent(false)
-            setCourse(!course)
-            setBlog(false)
-        }
-        else if (menu === 'blog') {
-            setHome(false)
-            setPage(false)
-            setEvent(false)
-            setCourse(false)
-            setBlog(!blog)
-        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // Remove token to logout
     };
 
     return (
@@ -59,20 +68,17 @@ const MenuItems = (props) => {
             <li className={location.pathname === "/" ? "menu-active" : ""}>
                 <Link to="/">Home</Link>
             </li>
-            <li className={parentMenu === 'page' || parentMenu === 'event' ? 'has-sub menu-active' : 'has-sub'}>
+            <li className={location.pathname === "/profile" || location.pathname === "/appointments" || location.pathname === "/course" || location.pathname === "/events" ? "menu-active" : ""}>
                 <Link to="#" className={page ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('page'); }}>
                     Services
                     <span className="arrow "></span>
                 </Link>
                 <ul className={page ? "sub-menu sub-menu-open" : "sub-menu"}>
-                    <li className={location.pathname === "/profile" ? "menu-active" : ""}>
-                        <Link to="/profile">Appointments</Link>
+                    <li className={location.pathname === "/appointments" ? "menu-active" : ""}>
+                        <Link to="/appointments">Appointments</Link>
                     </li>
-                    <li className={location.pathname === "/profile" ? "menu-active" : ""}>
-                    <Link to="https://video-convo-one.vercel.app/mymeetings">Conference</Link>
-                    </li>
-                    <li className={location.pathname === "/profile" ? "menu-active" : ""}>
-                        <Link to="/profile">Profile</Link>
+                    <li>
+                        <Link to="https://video-convo-one.vercel.app/mymeetings">Conference</Link>
                     </li>
                     <li className={location.pathname === "/course" ? "menu-active" : ""}>
                         <Link to="/course">Course</Link>
@@ -100,20 +106,32 @@ const MenuItems = (props) => {
                     <li className={location.pathname === "/blog" ? "menu-active" : ""}>
                         <Link to="/blog">Blog</Link>
                     </li>
-                    <li className={postURL[1] === "blog" && pathLength > 2 ? "menu-active" : ""}>
-                        <Link to="/blog/1">Blog Single</Link>
-                    </li>
                     <Link to="#" className={blog ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('blog'); }}>
-                    <span className="arrow "></span>
-                </Link>
+                        <span className="arrow "></span>
+                    </Link>
                 </ul>
             </li>
+
             <li className={location.pathname === '/contact' ? 'menu-active' : ''}>
                 <Link to="/contact">Contact</Link>
             </li>
-            <li className={location.pathname === "/login" ? "menu-active" : ""}>
-                <Link to="/login">Login</Link>
+
+            {/* Conditionally render Profile or Login based on login status */}
+            {isLoggedIn ? (
+                <li className={location.pathname === "/profile" ? "menu-active" : ""}>
+                    <Link to="/profile">Profile</Link>
+                </li>
+            ) : (
+                <li className={location.pathname === "/login" ? "menu-active" : ""}>
+                    <Link to="/login">Login</Link>
+                </li>
+            )}
+
+            <li>
+                <Link to="/login" onClick={handleLogout}>Logout</Link>
             </li>
+
+
         </>
     );
 }
