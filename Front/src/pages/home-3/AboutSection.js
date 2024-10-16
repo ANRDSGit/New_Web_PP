@@ -21,7 +21,7 @@ const About = () => {
                         <div class="about__content">
                             <h6 className="wow animate__fadeInUp" data-wow-duration="0.3s">About Us</h6>
                             <h2 class="about__title wow animate__fadeInUp" data-wow-duration="0.5s">Your Path to Holistic Healing</h2>
-                            <p class="about__paragraph wow animate__fadeInUp" data-wow-duration="0.7s">At our Ayurvedic clinic, we focus on holistic health using time-tested, natural healing methods rooted in the principles of Ayurveda. Our expert team of practitioners is dedicated to providing personalized care that brings balance to your body, mind, and soul. Whether you are looking to manage stress, improve your overall well-being, or treat a specific condition, we are here to help you achieve optimal health.</p>
+                            <p class="about__paragraph wow animate__fadeInUp" data-wow-duration="0.7s">At our Ayurvedic Medical Center, we focus on holistic health using time-tested, natural healing methods rooted in the principles of Ayurveda. Our expert team of practitioners is dedicated to providing personalized care that brings balance to your body, mind, and soul. Whether you are looking to manage stress, improve your overall well-being, or treat a specific condition, we are here to help you achieve optimal health.</p>
                             <ul>
                                 <li className="wow animate__fadeInUp" data-wow-duration="0.3s"><i class="icon_check"></i> Natural, Safe, and Effective Remedies. </li>
                                 <li className="wow animate__fadeInUp" data-wow-duration="0.5s"><i class="icon_check"></i> Expert Team of Practitioners. </li>
