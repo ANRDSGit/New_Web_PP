@@ -39,8 +39,25 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+const generateTimeSlots = () => {
+    const startTime = 16; // 4:00 PM in 24-hour format
+    const endTime = 21; // 9:00 PM in 24-hour format
+    const slots = [];
+  
+    for (let hour = startTime; hour < endTime; hour++) {
+      for (let minutes = 0; minutes < 60; minutes += 15) {
+        const timeString = `${hour < 10 ? '0' : ''}${hour}:${
+          minutes === 0 ? '00' : minutes
+        }`;
+        slots.push(timeString);
+      }
+    }
+    return slots;
+  };
+
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
   const [newAppointment, setNewAppointment] = useState({
     date: '',
     time: '',
@@ -72,6 +89,18 @@ const Appointments = () => {
         setLoading(false);
       });
   }, [token]);
+
+  useEffect(() => {
+    if (newAppointment.date) {
+      const slots = generateTimeSlots();
+      const bookedSlots = appointments
+        .filter((apt) => apt.date === newAppointment.date)
+        .map((apt) => apt.time);
+
+      const available = slots.filter((slot) => !bookedSlots.includes(slot));
+      setAvailableSlots(available);
+    }
+  }, [newAppointment.date, appointments]);
 
   // Handle creation of a new appointment
   const handleCreate = () => {
@@ -218,8 +247,8 @@ const Appointments = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
+                  select
                   label="Time"
-                  type="time"
                   value={newAppointment.time}
                   onChange={(e) =>
                     setNewAppointment({
@@ -231,7 +260,18 @@ const Appointments = () => {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                />
+                  disabled={!newAppointment.date} // Disable if no date is selected
+                >
+                  {availableSlots.length > 0 ? (
+                    availableSlots.map((slot, index) => (
+                      <MenuItem key={index} value={slot}>
+                        {slot}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>No slots available</MenuItem>
+                  )}
+                </TextField>
               </Grid>
               <Grid item xs={12} md={4}>
                 <TextField
@@ -252,7 +292,6 @@ const Appointments = () => {
               </Grid>
             </Grid>
             <Button
-              startIcon={<Add />}
               variant="contained"
               onClick={handleCreate}
               disabled={loading}
