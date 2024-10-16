@@ -126,10 +126,10 @@ const MenuItems = (props) => {
                     <Link to="/login">Login</Link>
                 </li>
             )}
-
             <li>
                 <Link to="/login" onClick={handleLogout}>Logout</Link>
             </li>
+
 
 
         </>
