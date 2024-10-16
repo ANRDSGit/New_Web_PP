@@ -30,7 +30,7 @@ const HomeBanner = () => {
                     <div className="row">
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div className="hero4__content">
-                                <h1 className="hero4__title wow animate__fadeInUp" data-wow-duration="0.3s">Welcome to Our Ayurvedic Medical Clinic</h1>
+                                <h1 className="hero4__title wow animate__fadeInUp" data-wow-duration="0.3s">Welcome to Our Ayurvedic Medical Center</h1>
                                 <p className="hero4__paragraph wow animate__fadeInUp" data-wow-duration="0.5s">"The natural healing force within each of us is the greatest force <br/>in getting well."<br/> - Hippocrates, Father of Medicine -</p>                                    
                                 <div className="event__video-btn--plays">
                                     <Link to="/course/1" className="hero4-btn wow animate__fadeInUp" data-wow-duration="0.7s">Book an Appointment</Link>
