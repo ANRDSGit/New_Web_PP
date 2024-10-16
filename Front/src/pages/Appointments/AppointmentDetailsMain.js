@@ -194,33 +194,8 @@ const Appointments = () => {
 
   return (
     <Box sx={{ padding: { xs: 2, md: 4 }, maxWidth: '1200px', margin: 'auto' }}>
-      <Fade in={true} timeout={1000}>
-        <Typography variant="h4" gutterBottom>
-          Appointments
-        </Typography>
-      </Fade>
-
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <Fade in={true} timeout={1500}>
-          <Box sx={{ boxShadow: 3, borderRadius: 3, overflow: 'hidden', padding: 2 }}>
-            <Calendar
-              localizer={localizer}
-              events={appointments.map((appointment) => ({
-                title: `${appointment.patientName} - ${appointment.appointmentType}`,
-                start: new Date(appointment.date),
-                end: new Date(appointment.date),
-                _id: appointment._id,
-              }))}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500, margin: '50px 0' }}
-              onSelectEvent={handleSelectAppointment}
-            />
-          </Box>
-        </Fade>
-      )}
+      
+      
 
       {/* Modal for Creating Appointment */}
       <Fade in={true} timeout={2000}>
@@ -401,41 +376,27 @@ const Appointments = () => {
         </Modal>
       )}
 
-      {/* Opening hours table */}
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h6" gutterBottom>
-          Opening Hours
-        </Typography>
-        <TableContainer
-          component={Paper}
-          sx={{
-            maxWidth: 600,
-            margin: 'left',
-            border: '3px solid',
-            borderColor: 'grey.300',
-            borderRadius: 2,
-          }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Day</TableCell>
-                <TableCell>Hours</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {openingHours.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {row.day}
-                  </TableCell>
-                  <TableCell>{row.hours}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+{loading ? (
+        <CircularProgress />
+      ) : (
+        <Fade in={true} timeout={1500}>
+          <Box sx={{ boxShadow: 3, borderRadius: 3, overflow: 'hidden', padding: 2 }}>
+            <Calendar
+              localizer={localizer}
+              events={appointments.map((appointment) => ({
+                title: `${appointment.patientName} - ${appointment.appointmentType}`,
+                start: new Date(appointment.date),
+                end: new Date(appointment.date),
+                _id: appointment._id,
+              }))}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: 500, margin: '50px 0' }}
+              onSelectEvent={handleSelectAppointment}
+            />
+          </Box>
+        </Fade>
+      )}
     </Box>
   );
 };
