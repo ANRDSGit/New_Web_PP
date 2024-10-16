@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'; // Make sure to import calendar styles
+import 'react-calendar/dist/Calendar.css';
+ // Add this line to import the CSS styles
 
 const InstructorDetailsMain = () => {
     const [date, setDate] = useState('');
@@ -20,8 +21,8 @@ const InstructorDetailsMain = () => {
             const token = localStorage.getItem('token');
             const response = await axios.get('/api/appointments/user', {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
             setAppointments(response.data);
         };
@@ -42,19 +43,19 @@ const InstructorDetailsMain = () => {
     useEffect(() => {
         const fetchAvailableTimes = async () => {
             if (!selectedDate) return;
-            
+
             const token = localStorage.getItem('token');
             const response = await axios.get(`/api/appointments/available-times/${selectedDate}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             // Filter available times to show only slots with fewer than 4 appointments
             const timeSlots = generateTimeSlots();
-            const availableSlots = timeSlots.filter(timeSlot => {
-                const appointmentsForTimeSlot = response.data.filter(app => app.time === timeSlot);
-                return appointmentsForTimeSlot.length < 4; // Only show slots with fewer than 4 appointments
+            const availableSlots = timeSlots.filter((timeSlot) => {
+                const appointmentsForTimeSlot = response.data.filter((app) => app.time === timeSlot);
+                return appointmentsForTimeSlot.length < 4;
             });
 
             setAvailableTimes(availableSlots); // Update available times
@@ -69,15 +70,19 @@ const InstructorDetailsMain = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await axios.post('/api/appointments', {
-                date,
-                time,
-                appointmentType
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
+            const response = await axios.post(
+                '/api/appointments',
+                {
+                    date,
+                    time,
+                    appointmentType,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
-            });
+            );
 
             alert('Appointment booked successfully');
             setAppointments([...appointments, response.data]); // Update calendar with new appointment
@@ -90,9 +95,7 @@ const InstructorDetailsMain = () => {
     const tileContent = ({ date, view }) => {
         if (view === 'month') {
             const dateString = date.toISOString().split('T')[0];
-            const appointmentForDate = appointments.filter(
-                (app) => app.date === dateString
-            );
+            const appointmentForDate = appointments.filter((app) => app.date === dateString);
 
             if (appointmentForDate.length > 0) {
                 return (
@@ -116,13 +119,14 @@ const InstructorDetailsMain = () => {
     };
 
     return (
-        <>
+        <div className="instructor-details">
             <h2>Book an Appointment</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Date: </label>
+            <form onSubmit={handleSubmit} className="appointment-form">
+                <div className="form-field">
+                    <label>Date:</label>
                     <input
                         type="date"
+                        className="input-box"
                         value={date}
                         onChange={(e) => {
                             setDate(e.target.value);
@@ -131,9 +135,9 @@ const InstructorDetailsMain = () => {
                         required
                     />
                 </div>
-                <div>
-                    <label>Time: </label>
-                    <select value={time} onChange={(e) => setTime(e.target.value)} required>
+                <div className="form-field">
+                    <label>Time:</label>
+                    <select className="input-box" value={time} onChange={(e) => setTime(e.target.value)} required>
                         <option value="">Select a time</option>
                         {availableTimes.length > 0 ? (
                             availableTimes.map((time) => (
@@ -146,25 +150,19 @@ const InstructorDetailsMain = () => {
                         )}
                     </select>
                 </div>
-                <div>
-                    <label>Appointment Type: </label>
-                    <select
-                        value={appointmentType}
-                        onChange={(e) => setAppointmentType(e.target.value)}
-                    >
+                <div className="form-field">
+                    <label>Appointment Type:</label>
+                    <select className="input-box" value={appointmentType} onChange={(e) => setAppointmentType(e.target.value)}>
                         <option value="physical">Physical</option>
                         <option value="remote">Remote</option>
                     </select>
                 </div>
-                <button type="submit">Book Appointment</button>
+                <button type="submit" className="submit-button">Book Appointment</button>
             </form>
 
             <h3>Appointments Calendar</h3>
-            <Calendar
-                tileContent={tileContent}
-                onClickDay={handleDateChange}
-            />
-        </>
+            <Calendar tileContent={tileContent} onClickDay={handleDateChange} className="custom-calendar" />
+        </div>
     );
 };
 
