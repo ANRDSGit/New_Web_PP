@@ -80,9 +80,9 @@ const MenuItems = (props) => {
                     <li>
                         <Link to="https://video-convo-one.vercel.app/mymeetings">Conference</Link>
                     </li>
-                    <li className={location.pathname === "/course" ? "menu-active" : ""}>
+                    {/* <li className={location.pathname === "/course" ? "menu-active" : ""}>
                         <Link to="/course">Course</Link>
-                    </li>
+                    </li> */}
                     <li className={parentMenu === 'event' ? 'has-sub menu-active' : 'has-sub'}>
                         <Link to="#" className={event ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('event'); }}>Events</Link>
                         <ul className={event ? "sub-menu sub-menu-open" : "sub-menu"}>
@@ -102,14 +102,14 @@ const MenuItems = (props) => {
 
             <li className={location.pathname === '/about' ? 'menu-active' : ''}>
                 <Link to="/about">About</Link>
-                <ul className={blog ? "sub-menu sub-menu-open" : "sub-menu"}>
+                {/* <ul className={blog ? "sub-menu sub-menu-open" : "sub-menu"}>
                     <li className={location.pathname === "/blog" ? "menu-active" : ""}>
                         <Link to="/blog">Blog</Link>
                     </li>
-                    <Link to="#" className={blog ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('blog'); }}>
+                    { <Link to="#" className={blog ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('blog'); }}>
                         <span className="arrow "></span>
-                    </Link>
-                </ul>
+                    </Link> }
+                </ul> */}
             </li>
 
             <li className={location.pathname === '/contact' ? 'menu-active' : ''}>

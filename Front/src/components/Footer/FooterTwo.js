@@ -43,8 +43,8 @@ const FooterTwo = (props) => {
                                     <div className="footer-menu">
                                         <ul>
                                             <li><Link to="/home-3">Home</Link></li>
-                                            <li><Link to="#">Appointments</Link></li>
-                                            <li><Link to="#">Conference</Link></li>
+                                            <li><Link to="/appointments">Appointments</Link></li>
+                                            <li><Link to="https://video-convo-one.vercel.app/mymeetings">Conference</Link></li>
                                             <li><Link to="/about">About</Link></li>
                                             <li><Link to="/contact">Contact</Link></li>
                                             <li><Link to="/login">Login</Link></li>
