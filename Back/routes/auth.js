@@ -215,7 +215,7 @@ router.post('/appointments', authenticateToken, async (req, res) => {
   try {
     const appointment = new Appointment({
       patientId: req.patient.id, // Automatically associate with logged-in user
-      number: req.patient.number, // Get patientName from token
+      patientName: req.patient.name, // Get patientName from token
       date,
       time,
       appointmentType,
@@ -231,19 +231,11 @@ router.post('/appointments', authenticateToken, async (req, res) => {
 // Get All Appointments for Logged-in User
 router.get('/appointments/user', authenticateToken, async (req, res) => {
   try {
-    const appointments = await Appointment.find({ number: req.patient.number });
+    const appointments = await Appointment.find({ patientName: req.patient.name });
     res.status(200).json(appointments);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching appointments' });
   }
-});
-
-// Search Appointments by Patient Name
-router.get('/appointments/search/:patientName', authenticateToken, async (req, res) => {
-  const appointments = await Appointment.find({
-    patientName: new RegExp(req.params.patientName, 'i'),
-  });
-  res.send(appointments);
 });
 
 // Update Appointment
