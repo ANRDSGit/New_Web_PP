@@ -118,17 +118,20 @@ const MenuItems = (props) => {
 
             {/* Conditionally render Profile or Login based on login status */}
             {isLoggedIn ? (
-                <li className={location.pathname === "/profile" ? "menu-active" : ""}>
-                    <Link to="/profile">Profile</Link>
-                </li>
+                <>
+                    <li className={location.pathname === "/profile" ? "menu-active" : ""}>
+                        <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                        <Link to="/login" onClick={handleLogout}>Logout</Link>
+                    </li>
+                </>
             ) : (
                 <li className={location.pathname === "/login" ? "menu-active" : ""}>
                     <Link to="/login">Login</Link>
                 </li>
             )}
-            <li>
-                <Link to="/login" onClick={handleLogout}>Logout</Link>
-            </li>
+
 
 
 

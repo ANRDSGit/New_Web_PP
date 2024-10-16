@@ -3,10 +3,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Patient = require('../models/Patients');
 const Appointment = require('../models/Appointments'); // Ensure the path is correct
-const nodemailer = require('nodemailer'); // Import nodemailer
+const nodemailer = require('nodemailer');// Import nodemailer
+require('dotenv').config();
+ 
 
 const router = express.Router();
-const SECRET_KEY = process.env.SECRET_KEY || 'strongsecretkey'; // Use environment variables for secrets
+const SECRET_KEY = process.env.SECRET_KEY; // Use environment variables for secrets
 
 // Nodemailer transporter configuration
 const transporter = nodemailer.createTransport({
@@ -198,104 +200,69 @@ router.get('/confirm-delete-account', async (req, res) => {
   }
 });
 
-// ** Create Appointment Route with Slot Check ** //
-const generateTimeSlots = () => {
-  const slots = [];
-  for (let i = 16; i <= 20; i++) {
-      slots.push(`${i}:00`, `${i}:30`);
-  }
-  return slots;
-};
-
-// ** Get Available Time Slots for a Given Date ** //
-router.get('/appointments/available-times/:date', authenticateToken, async (req, res) => {
-  const { date } = req.params;
-
-  if (!date) {
-      return res.status(400).json({ message: 'Please provide a valid date.' });
-  }
-
-  try {
-      // Fetch appointments for the selected date
-      const bookedAppointments = await Appointment.find({
-          date: new Date(date)
-      });
-
-      // Generate all time slots (e.g., 4:00 PM, 4:30 PM, etc.)
-      const allSlots = generateTimeSlots();
-
-      // Group appointments by time slots and count how many appointments exist for each slot
-      const bookedSlots = {};
-      bookedAppointments.forEach(appointment => {
-          if (!bookedSlots[appointment.time]) {
-              bookedSlots[appointment.time] = 1;
-          } else {
-              bookedSlots[appointment.time]++;
-          }
-      });
-
-      // Filter out time slots that already have 4 or more appointments booked
-      const availableSlots = allSlots.filter(slot => {
-          return !bookedSlots[slot] || bookedSlots[slot] < 4;
-      });
-
-      if (availableSlots.length === 0) {
-          return res.status(200).json({ message: 'No slots available on this date.' });
-      }
-
-      res.status(200).json(availableSlots);
-  } catch (error) {
-      res.status(500).json({ error: 'Error fetching available slots.' });
-  }
-});
-
-// ** Create Appointment Route ** //
+// Create Appointment
 router.post('/appointments', authenticateToken, async (req, res) => {
   const { date, time, appointmentType } = req.body;
 
-  if (!['physical', 'remote'].includes(appointmentType) || !date || !time) {
-      return res.status(400).json({ message: 'Invalid appointment data' });
+  // Validate appointmentType and required fields
+  if (!['physical', 'remote'].includes(appointmentType)) {
+    return res.status(400).json({ message: 'Invalid appointment type' });
+  }
+  if (!date || !time) {
+    return res.status(400).json({ message: 'Date and time are required' });
   }
 
   try {
-      // Check if the time slot for the given date is available
-      const existingAppointments = await Appointment.find({
-          date: new Date(date), time
-      });
+    const appointment = new Appointment({
+      patientId: req.patient.id, // Automatically associate with logged-in user
+      patientName: req.patient.name, // Get patientName from token
+      date,
+      time,
+      appointmentType,
+    });
 
-      if (existingAppointments.length >= 4) {
-          return res.status(400).json({ message: 'No more slots available at this time.' });
-      }
-
-      // Create and save the new appointment
-      const appointment = new Appointment({
-          patientId: req.patient.id,
-          patientName: req.patient.name,
-          email: req.patient.email,
-          date, time, appointmentType,
-      });
-
-      await appointment.save();
-      res.status(201).json(appointment);
+    await appointment.save();
+    res.status(201).json(appointment);
   } catch (error) {
-      res.status(500).json({ error: 'Error creating appointment' });
+    res.status(500).json({ error: 'Error creating appointment' });
   }
 });
 
-// ** Get Calendar Appointments ** //
+// Get All Appointments for Logged-in User
 router.get('/appointments/user', authenticateToken, async (req, res) => {
   try {
-      const appointments = await Appointment.find({ patientId: req.patient.id });
-
-      const formattedAppointments = appointments.map((appointment) => ({
-          date: appointment.date.toISOString().split('T')[0],
-          time: appointment.time,
-          appointmentType: appointment.appointmentType,
-      }));
-
-      res.status(200).json(formattedAppointments);
+    const appointments = await Appointment.find({ patientName: req.patient.name });
+    res.status(200).json(appointments);
   } catch (error) {
-      res.status(500).json({ error: 'Error fetching calendar appointments.' });
+    res.status(500).json({ error: 'Error fetching appointments' });
+  }
+});
+
+// Search Appointments by Patient Name
+router.get('/appointments/search/:patientName', authenticateToken, async (req, res) => {
+  const appointments = await Appointment.find({
+    patientName: new RegExp(req.params.patientName, 'i'),
+  });
+  res.send(appointments);
+});
+
+// Update Appointment
+router.put('/appointments/:id', authenticateToken, async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(appointment);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating appointment' });
+  }
+});
+
+// Delete an appointment
+router.delete('/appointments/:id', authenticateToken, async (req, res) => {
+  try {
+    await Appointment.findByIdAndDelete(req.params.id);
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting appointment' });
   }
 });
 
