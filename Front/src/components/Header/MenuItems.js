@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 const MenuItems = (props) => {
     const { parentMenu } = props;
@@ -12,6 +15,7 @@ const MenuItems = (props) => {
     const [event, setEvent] = useState(false);
     const [course, setCourse] = useState(false);
     const [blog, setBlog] = useState(false);
+    const navigate = useNavigate();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
@@ -60,7 +64,21 @@ const MenuItems = (props) => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove token to logout
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will be logged out!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log me out!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                toast.success('Successfully logged out!');
+                navigate('/login');
+            }
+        });
     };
 
     return (
@@ -68,7 +86,7 @@ const MenuItems = (props) => {
             <li className={location.pathname === "/" ? "menu-active" : ""}>
                 <Link to="/">Home</Link>
             </li>
-            <li className={location.pathname === "/profile" || location.pathname === "/appointments" || location.pathname === "/course" || location.pathname === "/events" ? "menu-active" : ""}>
+            <li className={location.pathname === "/appointments" || location.pathname === "/course" || location.pathname === "/events" ? "menu-active" : ""}>
                 <Link to="#" className={page ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('page'); }}>
                     Services
                     <span className="arrow "></span>
@@ -123,7 +141,7 @@ const MenuItems = (props) => {
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                        <Link to="/login" onClick={handleLogout}>Logout</Link>
+                        <Link to="" onClick={handleLogout}>Logout</Link>
                     </li>
                 </>
             ) : (

@@ -14,16 +14,16 @@ import {
   Paper,
   Card,
   CardContent,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Snackbar,
+  Alert, // Import Alert from MUI for the Snackbar messages
 } from '@mui/material';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { Add } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -40,20 +40,18 @@ const localizer = dateFnsLocalizer({
 });
 
 const generateTimeSlots = () => {
-    const startTime = 16; // 4:00 PM in 24-hour format
-    const endTime = 21; // 9:00 PM in 24-hour format
-    const slots = [];
-  
-    for (let hour = startTime; hour < endTime; hour++) {
-      for (let minutes = 0; minutes < 60; minutes += 15) {
-        const timeString = `${hour < 10 ? '0' : ''}${hour}:${
-          minutes === 0 ? '00' : minutes
-        }`;
-        slots.push(timeString);
-      }
+  const startTime = 16; // 4:00 PM in 24-hour format
+  const endTime = 21; // 9:00 PM in 24-hour format
+  const slots = [];
+
+  for (let hour = startTime; hour < endTime; hour++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      const timeString = `${hour < 10 ? '0' : ''}${hour}:${minutes === 0 ? '00' : minutes}`;
+      slots.push(timeString);
     }
-    return slots;
-  };
+  }
+  return slots;
+};
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -67,6 +65,9 @@ const Appointments = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [appointmentToDelete, setAppointmentToDelete] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(''); // New state for success messages
   const token = localStorage.getItem('token');
 
   const navigate = useNavigate();
@@ -91,19 +92,25 @@ const Appointments = () => {
   }, [token]);
 
   useEffect(() => {
-    if (newAppointment.date) {
+    if (newAppointment.date || (selectedAppointment && selectedAppointment.date)) {
       const slots = generateTimeSlots();
+      const currentDate = newAppointment.date || selectedAppointment.date;
       const bookedSlots = appointments
-        .filter((apt) => apt.date === newAppointment.date)
+        .filter((apt) => apt.date === currentDate && apt._id !== (selectedAppointment?._id))
         .map((apt) => apt.time);
 
       const available = slots.filter((slot) => !bookedSlots.includes(slot));
       setAvailableSlots(available);
     }
-  }, [newAppointment.date, appointments]);
+  }, [newAppointment.date, selectedAppointment?.date, appointments, selectedAppointment]);
 
   // Handle creation of a new appointment
   const handleCreate = () => {
+    if (!newAppointment.date || !newAppointment.time) {
+      setError('Please select both date and time for the appointment.');
+      return;
+    }
+
     setLoading(true);
     axios
       .post('http://localhost:7000/api/auth/appointments', newAppointment, {
@@ -112,6 +119,8 @@ const Appointments = () => {
       .then((res) => {
         setAppointments([...appointments, res.data]);
         setNewAppointment({ date: '', time: '', appointmentType: 'physical' });
+        setError('');
+        setSuccessMessage('Appointment created successfully'); // Set success message
       })
       .catch((err) => {
         setError('Error creating appointment');
@@ -124,14 +133,22 @@ const Appointments = () => {
 
   // Handle selection of an appointment from the calendar
   const handleSelectAppointment = (appointment) => {
-    setSelectedAppointment(appointment);
+    // Find the full appointment details by ID
+    const fullAppointment = appointments.find((apt) => apt._id === appointment._id);
+    setSelectedAppointment(fullAppointment);
     setOpenModal(true);
+    setError('');
   };
 
   // Handle updating the selected appointment
   const handleUpdate = () => {
     if (!selectedAppointment || !selectedAppointment._id) {
       setError('Selected appointment is invalid');
+      return;
+    }
+
+    if (!selectedAppointment.date || !selectedAppointment.time) {
+      setError('Please ensure both date and time are selected.');
       return;
     }
 
@@ -151,6 +168,9 @@ const Appointments = () => {
           )
         );
         setOpenModal(false);
+        setSelectedAppointment(null);
+        setError('');
+        setSuccessMessage('Appointment updated successfully'); // Set success message
       })
       .catch((err) => {
         setError('Error updating appointment');
@@ -161,16 +181,31 @@ const Appointments = () => {
       });
   };
 
+
+
+  // Open delete confirmation dialog
+  const openDeleteConfirmation = (appointment) => {
+    setAppointmentToDelete(appointment);
+    setOpenConfirmDialog(true);
+  };
+
   // Handle deletion of an appointment
-  const handleDelete = (id) => {
+  const handleDelete = () => {
+    if (!appointmentToDelete) return;
+
     setLoading(true);
     axios
-      .delete(`http://localhost:7000/api/auth/appointments/${id}`, {
+      .delete(`http://localhost:7000/api/auth/appointments/${appointmentToDelete._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
-        setAppointments(appointments.filter((apt) => apt._id !== id));
+        setAppointments(appointments.filter((apt) => apt._id !== appointmentToDelete._id));
         setOpenModal(false);
+        setSelectedAppointment(null);
+        setError('');
+        setOpenConfirmDialog(false);
+        setAppointmentToDelete(null);
+        setSuccessMessage('Appointment deleted successfully'); // Set success message
       })
       .catch((err) => {
         setError('Error deleting appointment');
@@ -181,21 +216,8 @@ const Appointments = () => {
       });
   };
 
-  // Opening hours data
-  const openingHours = [
-    { day: 'Monday', hours: '4:00 PM - 9:00 PM' },
-    { day: 'Tuesday', hours: '4:00 PM - 9:00 PM' },
-    { day: 'Wednesday', hours: '4:00 PM - 9:00 PM' },
-    { day: 'Thursday', hours: '4:00 PM - 9:00 PM' },
-    { day: 'Friday', hours: '4:00 PM - 9:00 PM' },
-    { day: 'Saturday', hours: '10:00 AM - 4:00 PM' },
-    { day: 'Sunday', hours: 'Closed' },
-  ];
-
   return (
     <Box sx={{ padding: { xs: 2, md: 4 }, maxWidth: '1200px', margin: 'auto' }}>
-      
-      
 
       {/* Modal for Creating Appointment */}
       <Fade in={true} timeout={2000}>
@@ -266,13 +288,18 @@ const Appointments = () => {
                 </TextField>
               </Grid>
             </Grid>
+            {error && (
+              <Typography color="error" sx={{ mt: 2 }}>
+                {error}
+              </Typography>
+            )}
             <Button
               variant="contained"
               onClick={handleCreate}
               disabled={loading}
               sx={{ mt: 2 }}
             >
-              Create Appointment
+              {loading ? <CircularProgress size={24} /> : 'Create Appointment'}
             </Button>
           </CardContent>
         </Card>
@@ -281,25 +308,53 @@ const Appointments = () => {
       {selectedAppointment && (
         <Modal
           open={openModal}
-          onClose={() => setOpenModal(false)}
+          onClose={() => {
+            setOpenModal(false);
+            setSelectedAppointment(null);
+            setError('');
+          }}
           closeAfterTransition
           BackdropComponent={Backdrop}
           BackdropProps={{
             timeout: 500,
-            sx: { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+            sx: { backgroundColor: 'rgba(0, 0, 0, 0.4)' },
           }}
         >
           <Fade in={openModal}>
             <Paper
               elevation={5}
               sx={{
-                padding: 4,
+                padding: 3,
                 margin: 'auto',
                 maxWidth: 500,
-                mt: 10,
+                mt: { xs: 12, md: 15 },
                 borderRadius: 2,
+                position: 'relative',
               }}
             >
+              {/* Display Appointment Details */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h6" color="textSecondary">
+                  <strong>Appointment Details:</strong>
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Date:</strong> {selectedAppointment.date}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Time:</strong> {selectedAppointment.time}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Type:</strong> {selectedAppointment.appointmentType.charAt(0).toUpperCase() + selectedAppointment.appointmentType.slice(1)}
+                </Typography>
+                {/* Add more details if available, e.g., patient name */}
+                {selectedAppointment.patientName && (
+                  <Typography variant="body1">
+                    <strong>Patient Name:</strong> {selectedAppointment.patientName}
+                  </Typography>
+                )}
+              </Box>
+
+              {/* Edit Appointment Form */}
               <Typography variant="h5" gutterBottom>
                 Edit Appointment
               </Typography>
@@ -323,8 +378,8 @@ const Appointments = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    select
                     label="Time"
-                    type="time"
                     value={selectedAppointment.time || ''}
                     onChange={(e) =>
                       setSelectedAppointment({
@@ -336,7 +391,17 @@ const Appointments = () => {
                     InputLabelProps={{
                       shrink: true,
                     }}
-                  />
+                  >
+                    {availableSlots.length > 0 ? (
+                      availableSlots.map((slot, index) => (
+                        <MenuItem key={index} value={slot}>
+                          {slot}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem disabled>No slots available</MenuItem>
+                    )}
+                  </TextField>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -356,47 +421,119 @@ const Appointments = () => {
                   </TextField>
                 </Grid>
               </Grid>
-              <Button
-                variant="contained"
-                onClick={handleUpdate}
-                sx={{ mt: 2 }}
-              >
-                Update Appointment
-              </Button>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => handleDelete(selectedAppointment._id)}
-                sx={{ mt: 2, ml: 2 }}
-              >
-                Delete Appointment
-              </Button>
+              {error && (
+                <Typography color="error" sx={{ mt: 2 }}>
+                  {error}
+                </Typography>
+              )}
+              <Grid container spacing={2} sx={{ mt: 2 }}>
+                <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={handleUpdate}
+                    disabled={loading}
+                  >
+                    {loading ? <CircularProgress size={24} /> : 'Update'}
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    fullWidth
+                    onClick={() => openDeleteConfirmation(selectedAppointment)}
+                    disabled={loading}
+                  >
+                    {loading ? <CircularProgress size={24} /> : 'Delete'}
+                  </Button>
+                </Grid>
+              </Grid>
             </Paper>
           </Fade>
         </Modal>
       )}
 
-{loading ? (
-        <CircularProgress />
-      ) : (
-        <Fade in={true} timeout={1500}>
-          <Box sx={{ boxShadow: 3, borderRadius: 3, overflow: 'hidden', padding: 2 }}>
-            <Calendar
-              localizer={localizer}
-              events={appointments.map((appointment) => ({
-                title: `${appointment.patientName} - ${appointment.appointmentType}`,
-                start: new Date(appointment.date),
-                end: new Date(appointment.date),
-                _id: appointment._id,
-              }))}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500, margin: '50px 0' }}
-              onSelectEvent={handleSelectAppointment}
-            />
-          </Box>
-        </Fade>
-      )}
+
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={openConfirmDialog}
+        onClose={() => setOpenConfirmDialog(false)}
+        aria-labelledby="confirm-dialog-title"
+        aria-describedby="confirm-dialog-description"
+      >
+        <DialogTitle id="confirm-dialog-title">Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="confirm-dialog-description">
+            Are you sure you want to delete this appointment?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenConfirmDialog(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="error" autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Success Snackbar */}
+      <Snackbar
+        open={!!successMessage}
+        autoHideDuration={6000}
+        onClose={() => setSuccessMessage('')}
+      >
+        <Alert onClose={() => setSuccessMessage('')} severity="success" sx={{ width: '100%' }}>
+          {successMessage}
+        </Alert>
+      </Snackbar>
+
+
+
+      {/* Calendar to display appointments */}
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h5" gutterBottom>
+          My Appointments
+        </Typography>
+        {loading && appointments.length === 0 ? (
+          <CircularProgress />
+        ) : (
+          <Calendar
+            localizer={localizer}
+            events={appointments.map((apt) => {
+              const [hours, minutes] = apt.time.split(':');
+              const startDate = new Date(apt.date);
+              startDate.setHours(parseInt(hours), parseInt(minutes));
+
+              // Set the end time to 15 minutes after the start time
+              const endDate = new Date(startDate);
+              endDate.setMinutes(startDate.getMinutes() + 15);
+
+              return {
+                title: `${apt.appointmentType.charAt(0).toUpperCase() + apt.appointmentType.slice(1)} - ${apt.time}`,
+                start: startDate,
+                end: endDate,
+                _id: apt._id,
+                patientName: apt.patientName, // Assuming patientName exists
+              };
+            })}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            onSelectEvent={handleSelectAppointment}
+            eventPropGetter={(event) => ({
+              style: {
+                backgroundColor: event.appointmentType === 'remote' ? '#4caf50' : '#2196f3',
+                color: 'white',
+              },
+            })}
+          />
+        )}
+      </Box>
     </Box>
   );
 };

@@ -1,55 +1,4 @@
 @charset "utf-8";
-/**
-*
-* -----------------------------------------------------------------------------
-*
-* Template : Echooling - Online Education React Template
-* Author : reacthemes
-* Author URI : https://reactheme.com/
-*
-* ------------------------------------------------
-*
-**/
-
-/* Table Of Content
----------------------------------------------------------
-01. General CSS Here 
-02. Common Class CSS Here 
-03. Header Section CSS Here
-04. Banner Section CSS Here
-05. Course Filter CSS Here
-06. Slider Section CSS Here
-07. Banner Two Section CSS Here
-08. Service CSS Here
-09. Popular Topics CSS Here
-10. About Section CSS Here
-11. Breadcrumbs Section CSS
-12. Featured Online Section CSS Here 
-13. FAQ Section CSS Here
-14. Instructor Section CSS Here
-15. Profile Section CSS Here 
-16. Clients Section CSS Here
-17. Blog Section CSS Here  
-18. Campus Section CSS Here
-19. Course Section CSS Here
-20. Counter CSS Here
-21. Upcoming Event Section CSS Here
-22. Blog Page CSS Here
-23. Blog Details Page CSS
-24. Contact Page CSS Here 
-25. Courses Section CSS Here  
-26. Sidebar Section CSS Here
-27. Student Satisfaction Section CSS Here  
-28. High Quality CSS Here  
-29. Footer CSS Here
-30. 404 CSS Here 
-31. Preloader CSS Here
-32. ScrollUp CSS Here
-33. Login CSS Here 
-
-
---------------------------------------------------------*/
-
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:ital,wght$0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
 $titlefont: 'Source Sans Pro', sans-serif;
 $bodyfont: 'Source Sans Pro', sans-serif;
@@ -2476,7 +2425,45 @@ ul {
     }
 }
 
-
+.profile-button-container {
+    display: flex;
+    gap: 1.5rem;  // Space between buttons
+    justify-content: flex-start;  // Align buttons to the left
+    margin-top: 2rem;
+  
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;  // Space between text and icon
+      background-color: #3085d6;
+      border: none;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+  
+      &:hover {
+        background-color: #256cbf;  // Slightly darker blue on hover
+      }
+  
+      &.delete {
+        background-color: #d33;
+  
+        &:hover {
+          background-color: #b02a2a;  // Darker red on hover
+        }
+      }
+    }
+  }
+  
 
 
 .home-five.instructor-section {

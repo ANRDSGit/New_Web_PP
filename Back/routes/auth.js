@@ -22,20 +22,75 @@ const transporter = nodemailer.createTransport({
 // Helper function to send email notifications
 const sendLoginEmail = (email, name) => {
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: `"Your App Name" <${process.env.GMAIL_USER}>`,
     to: email,
-    subject: 'Login Notification',
-    text: `Hi ${name}, you have successfully logged in. If this wasn't you, please secure your account immediately.`,
+    subject: 'Successful Login Alert',
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 style="color: #4CAF50;">Hello ${name},</h2>
+        <p>We noticed a successful login to your account just now. If this was you, no further action is required.</p>
+        <p>If this wasn't you, <strong>please secure your account immediately</strong> by changing your password and reviewing any suspicious activity.</p>
+        <a href="${process.env.BASE_URL}/reset-password" 
+           style="background-color: #F44336; color: white; text-decoration: none; padding: 10px 20px; 
+           border-radius: 5px; display: inline-block; margin: 10px 0;">
+          Secure My Account
+        </a>
+        <p>If the button above doesn't work, copy and paste the following link in your browser:</p>
+        <p style="word-wrap: break-word;">
+          <a href="${process.env.BASE_URL}/reset-password" style="color: #F44336;">
+            ${process.env.BASE_URL}/reset-password
+          </a>
+        </p>
+        <p>If you need further assistance, feel free to contact our support team.</p>
+        <p>Stay safe,<br>Team Patient Pulse</p>
+        <hr style="border: none; border-top: 1px solid #ccc;">
+        <footer style="font-size: 12px; color: #888;">
+          <p>This is an automated message. Please do not reply to this email.</p>
+        </footer>
+      </div>
+    `,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log('Error sending login email:', error);
+      console.error('Error sending login email:', error);
     } else {
       console.log('Login email sent:', info.response);
     }
   });
 };
+
+
+
+
+// Route to count total physical appointments
+router.get('/appointments/physical-count', async (req, res) => {
+  try {
+    const physicalAppointmentCount = await Appointment.countDocuments({ appointmentType: 'physical' });
+    res.status(200).json({ count: physicalAppointmentCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching physical appointments count' });
+  }
+});
+router.get('/appointments/remote-count', async (req, res) => {
+  try {
+    const remoteAppointmentCount = await Appointment.countDocuments({ appointmentType: 'remote' });
+    res.status(200).json({ count: remoteAppointmentCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching remote appointments count' });
+  }
+});
+
+router.get('/total-patients', async (req, res) => {
+  try {
+    const patientCount = await Patient.countDocuments();
+    res.status(200).json({ count: patientCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching patient count' });
+  }
+});
+
+
 
 // ** Patient Signup Route ** //
 router.post('/signup', async (req, res) => {
@@ -47,26 +102,56 @@ router.post('/signup', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     patient = new Patient({
-      name, dob, gender, bloodGroup, number, email,
-      password: hashedPassword, isVerified: false
+      name,
+      dob,
+      gender,
+      bloodGroup,
+      number,
+      email,
+      password: hashedPassword,
+      isVerified: false,
     });
     await patient.save();
 
     // Generate email verification token
-    const verificationToken = jwt.sign({ id: patient._id, email: patient.email }, SECRET_KEY, { expiresIn: '1h' });
+    const verificationToken = jwt.sign(
+      { id: patient._id, email: patient.email },
+      SECRET_KEY,
+      { expiresIn: '1h' }
+    );
     const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
-    
-    // Email content
+
+    // Email content with professional HTML format
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: `"Your App Name" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: 'Email Verification',
-      text: `Please verify your email by clicking the following link: ${verificationUrl}`,
+      subject: 'Confirm Your Email Address',
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+          <h2 style="color: #4CAF50;">Welcome to Your App Name, ${name}!</h2>
+          <p>Thank you for signing up. Please confirm your email address to activate your account:</p>
+          <a href="${verificationUrl}" 
+             style="background-color: #4CAF50; color: white; text-decoration: none; padding: 10px 20px; 
+             border-radius: 5px; display: inline-block; margin: 10px 0;">
+            Verify Email
+          </a>
+          <p>If the button above doesn't work, copy and paste the following link in your browser:</p>
+          <p style="word-wrap: break-word;">
+            <a href="${verificationUrl}" style="color: #4CAF50;">${verificationUrl}</a>
+          </p>
+          <p>If you didn’t create this account, you can safely ignore this email.</p>
+          <p>Best regards,<br>Team Patient Pulse</p>
+          <hr style="border: none; border-top: 1px solid #ccc;">
+          <footer style="font-size: 12px; color: #888;">
+            <p>This is an automated message, please do not reply to this email.</p>
+          </footer>
+        </div>
+      `,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.error('Error sending verification email: ', err);
+        console.error('Error sending verification email:', err);
         return res.status(500).send('Error sending verification email');
       }
       console.log('Verification email sent:', info.response);
@@ -77,6 +162,7 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 // ** Email Verification Route ** //
 router.get('/verify-email', async (req, res) => {
@@ -144,18 +230,39 @@ router.get('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-// ** Password Reset Route ** //
-router.put('/reset-password', authenticateToken, async (req, res) => {
-  const { newPassword } = req.body;
 
+router.get('/user/physicalCount', authenticateToken, async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await Patient.findByIdAndUpdate(req.patient.id, { password: hashedPassword });
-    res.json({ message: 'Password reset successful' });
+
+    const physicalCount = await Appointment.countDocuments({ 
+      patientName: req.patient.name, // Use patientId from the authenticated token
+      appointmentType: 'physical' // Filter for physical appointments only
+    });
+    
+    res.status(200).json({ count: physicalCount });
   } catch (error) {
-    res.status(500).json({ error: 'Error resetting password' });
+    console.error('Error fetching physical appointments', error);
+    res.status(500).json({ error: 'Error fetching physical appointments' });
   }
 });
+router.get('/user/remoteCount', authenticateToken, async (req, res) => {
+  try {
+
+    const physicalCount = await Appointment.countDocuments({ 
+      patientName: req.patient.name, // Use patientId from the authenticated token
+      appointmentType: 'remote' // Filter for remote appointments only
+    });
+    
+    res.status(200).json({ count: physicalCount });
+  } catch (error) {
+    console.error('Error fetching remote appointments', error);
+    res.status(500).json({ error: 'Error fetching remote appointments' });
+  }
+});
+
+
+
+// ** Password Reset Route ** //
 
 // ** Delete Account Request Route ** //
 router.post('/request-delete-account', authenticateToken, async (req, res) => {
