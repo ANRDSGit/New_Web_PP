@@ -9,8 +9,8 @@ import testiImg1 from '../../assets/images/testimonial/1.png';
 import testiImg2 from '../../assets/images/testimonial/2.png';
 import testiImg3 from '../../assets/images/testimonial/3.png';
 
-import countIcon1 from '../../assets/images/counter/1.png';
-import countIcon2 from '../../assets/images/counter/2.png';
+import countIcon1 from '../../assets/images/counter/2.png';
+import countIcon2 from '../../assets/images/counter/1.png';
 import countIcon3 from '../../assets/images/counter/3.png';
 import countIcon4 from '../../assets/images/counter/4.png';
 
@@ -126,7 +126,81 @@ const Testimonial = () => {
                 {/* Testimonial Slider */}
                 <div className="feedreact-slider owl-carousel">
                     <Slider {...sliderSettings}>
-                        {/* Testimonial cards go here */}
+                    <div className="event__card">
+                            <div className="event__card--content">
+                                <div className="event__card--content-area">
+                                    <div className="testimonial__ratings">
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star_alt"></em>
+                                        <span> (14 Reviews) </span>
+                                    </div>
+                                    <div className="parag">I was amazed by the level of personalized care at Patient Pulse. They took the time to understand my health history and lifestyle before recommending treatments. I now feel healthier and more balanced than I have in years.</div>
+                                </div>
+                                <img className="poly" src={polyImg} alt="image" />
+                            </div>
+                            <div className="author-sec">
+                                <div className="icon">
+                                    <img src={testiImg1} alt="image" />
+                                </div>
+                                <div className="text">
+                                    <h4>Kasun Perera</h4>
+                                    <p>Journalist</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="event__card">
+                            <div className="event__card--content">
+                                <div className="event__card--content-area">
+                                    <div className="testimonial__ratings">
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <span> (18 Reviews) </span>
+                                    </div>
+                                    <div className="parag">After suffering from joint pain for years, I decided to try Ayurvedic treatment at Patient Pulse. The team provided a detailed plan, and within a few weeks, I experienced significant relief without relying on medication. Their expertise in natural healing is truly remarkable.</div>
+                                </div>
+                                <img className="poly" src={polyImg} alt="image" />
+                            </div>
+                            <div className="author-sec">
+                                <div className="icon">
+                                    <img src={testiImg2} alt="image" />
+                                </div>
+                                <div className="text">
+                                    <h4>Hansana Dhanuri</h4>
+                                    <p>Teacher</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="event__card">
+                            <div className="event__card--content">
+                                <div className="event__card--content-area">
+                                    <div className="testimonial__ratings">
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star"></em>
+                                        <em className="icon_star_alt"></em>
+                                        <em className="icon_star_alt"></em>
+                                        <span> (26 Reviews) </span>
+                                    </div>
+                                    <div className="parag">I've struggled with digestive issues for a long time, and nothing seemed to help until I visited Patient Pulse. Their natural remedies and dietary guidance have made a huge difference. I finally feel like my body is in harmony again.</div>
+                                </div>
+                                <img className="poly" src={polyImg} alt="image" />
+                            </div>
+                            <div className="author-sec">
+                                <div className="icon">
+                                    <img src={testiImg3} alt="image" />
+                                </div>
+                                <div className="text">
+                                    <h4>Chandika Dewruwan</h4>
+                                    <p>Manager</p>
+                                </div>
+                            </div>
+                        </div>
                     </Slider>
                 </div>
             </div>

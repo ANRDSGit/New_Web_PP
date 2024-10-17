@@ -101,7 +101,7 @@ const MenuItems = (props) => {
                     {/* <li className={location.pathname === "/course" ? "menu-active" : ""}>
                         <Link to="/course">Course</Link>
                     </li> */}
-                    <li className={parentMenu === 'event' ? 'has-sub menu-active' : 'has-sub'}>
+                    {/* <li className={parentMenu === 'event' ? 'has-sub menu-active' : 'has-sub'}>
                         <Link to="#" className={event ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('event'); }}>Events</Link>
                         <ul className={event ? "sub-menu sub-menu-open" : "sub-menu"}>
                             <li className={location.pathname === "/event" ? "menu-active" : ""}>
@@ -114,7 +114,7 @@ const MenuItems = (props) => {
                                 <Link to="/event/1">Event Single</Link>
                             </li>
                         </ul>
-                    </li>
+                    </li> */}
                 </ul>
             </li>
 

@@ -19,10 +19,27 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const sendEmail = (to, subject, html) => {
+  const mailOptions = {
+    from: `"Team Patient Pulse" <${process.env.GMAIL_USER}>`,
+    to,
+    subject,
+    html,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+};
+
 // Helper function to send email notifications
 const sendLoginEmail = (email, name) => {
   const mailOptions = {
-    from: `"Your App Name" <${process.env.GMAIL_USER}>`,
+    from: `"Team Patient Pulse" <${process.env.GMAIL_USER}>`,
     to: email,
     subject: 'Successful Login Alert',
     html: `
@@ -37,8 +54,8 @@ const sendLoginEmail = (email, name) => {
         </a>
         <p>If the button above doesn't work, copy and paste the following link in your browser:</p>
         <p style="word-wrap: break-word;">
-          <a href="${process.env.BASE_URL}/reset-password" style="color: #F44336;">
-            ${process.env.BASE_URL}/reset-password
+          <a href="${process.env.BASE_URL}/request-reset-password" style="color: #F44336;">
+            ${process.env.BASE_URL}/request-reset-password
           </a>
         </p>
         <p>If you need further assistance, feel free to contact our support team.</p>
@@ -119,11 +136,11 @@ router.post('/signup', async (req, res) => {
       SECRET_KEY,
       { expiresIn: '1h' }
     );
-    const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
 
     // Email content with professional HTML format
     const mailOptions = {
-      from: `"Your App Name" <${process.env.GMAIL_USER}>`,
+      from: `"Team Patient Pulse" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: 'Confirm Your Email Address',
       html: `
@@ -261,9 +278,6 @@ router.get('/user/remoteCount', authenticateToken, async (req, res) => {
 });
 
 
-
-// ** Password Reset Route ** //
-
 // ** Delete Account Request Route ** //
 router.post('/request-delete-account', authenticateToken, async (req, res) => {
   try {
@@ -271,7 +285,7 @@ router.post('/request-delete-account', authenticateToken, async (req, res) => {
     if (!patient) return res.status(404).json({ message: 'Patient not found' });
 
     const deleteToken = jwt.sign({ id: patient._id }, SECRET_KEY, { expiresIn: '1h' });
-    const deleteUrl = `${process.env.BASE_URL}/api/auth/confirm-delete-account?token=${deleteToken}`;
+    const deleteUrl = `${process.env.BASE_URL}/confirm-delete-account?token=${deleteToken}`;
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
