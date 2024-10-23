@@ -130,7 +130,7 @@ router.post('/signup', async (req, res) => {
       SECRET_KEY,
       { expiresIn: '1h' }
     );
-    const verificationUrl = `${process.env.BASE_URL}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `https://new-web-pp.onrender.com/api/auth/verify-email?token=${verificationToken}`;
 
     // Email content with professional HTML format
     const mailOptions = {
