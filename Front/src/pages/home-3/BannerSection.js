@@ -69,7 +69,7 @@ const HomeBanner = () => {
                                         Book an Appointment
                                     </button>
                                     <Link
-                                        to="https://www.youtube.com/embed/4jn77iLBtrs?si=g8rVNIpGx0y3SQ3A" onClick={() => { openModal(); }} className="event__videos custom-popup wow animate__fadeInUp" data-wow-duration="0.9s"
+                                        to="https://www.youtube.com/embed/4jn77iLBtrs?si=g8rVNIpGx0y3SQ3A"
                                         onClick={openModal}
                                         className="event__videos custom-popup wow animate__fadeInUp"
                                         data-wow-duration="0.9s"
