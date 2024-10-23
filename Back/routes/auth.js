@@ -112,6 +112,18 @@ router.post('/signup', async (req, res) => {
     if (patient) return res.status(400).send('Patient already exists');
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Find the last user and extract the latest user id
+    const lastPatient = await Patient.findOne().sort({ createdAt: -1 });
+    let newUserId = 'U001'; // Default for the first user
+
+    if (lastPatient && lastPatient.userId) {
+      const lastUserId = lastPatient.userId; // e.g., 'U001'
+      const lastUserNumber = parseInt(lastUserId.substring(1)); // Extract number part (001)
+      const newUserNumber = lastUserNumber + 1; // Increment by 1
+      newUserId = `U${newUserNumber.toString().padStart(3, '0')}`; // e.g., 'U002'
+    }
+
     patient = new Patient({
       name,
       dob,
@@ -120,8 +132,10 @@ router.post('/signup', async (req, res) => {
       number,
       email,
       password: hashedPassword,
+      userId: newUserId, // Add the userId to the patient document
       isVerified: false,
     });
+
     await patient.save();
 
     // Generate email verification token
@@ -169,6 +183,7 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 
 // ** Email Verification Route ** //

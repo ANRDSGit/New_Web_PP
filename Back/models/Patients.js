@@ -3,12 +3,13 @@ const bcrypt = require('bcryptjs');
 
 const patientSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  dob: { type: Date, required: true }, // Store date of birth
+  dob: { type: Date, required: true },
   gender: { type: String, required: true },
   bloodGroup: { type: String, required: true },
-  number: { type: String, required: true }, // Added phone number field
-  email: { type: String, required: true, unique: true }, // Email should be unique
+  number: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  userId: { type: String, unique: true }, // Add userId here
   createdAt: { type: Date, default: Date.now },
   isVerified: { type: Boolean, default: false }
 });
