@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
@@ -92,42 +92,26 @@ const MenuItems = (props) => {
                     <span className="arrow "></span>
                 </Link>
                 <ul className={page ? "sub-menu sub-menu-open" : "sub-menu"}>
-                    <li className={location.pathname === "/appointments" ? "menu-active" : ""}>
-                        <Link to="/appointments">Appointments</Link>
-                    </li>
-                    <li>
-                        <Link to="https://video-convo-one.vercel.app/mymeetings">Conference</Link>
-                    </li>
-                    {/* <li className={location.pathname === "/course" ? "menu-active" : ""}>
-                        <Link to="/course">Course</Link>
-                    </li> */}
-                    {/* <li className={parentMenu === 'event' ? 'has-sub menu-active' : 'has-sub'}>
-                        <Link to="#" className={event ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('event'); }}>Events</Link>
-                        <ul className={event ? "sub-menu sub-menu-open" : "sub-menu"}>
-                            <li className={location.pathname === "/event" ? "menu-active" : ""}>
-                                <Link to="/event">Events</Link>
+
+                    {isLoggedIn ? (
+                        <>
+                            <li className={location.pathname === "/appointments" ? "menu-active" : ""}>
+                                <Link to="/appointments">Appointments</Link>
                             </li>
-                            <li className={location.pathname === "/event-sidebar" ? "menu-active" : ""}>
-                                <Link to="/event-sidebar">Events Sidebar</Link>
+                            <li>
+                                <a href="https://video-convo-one.vercel.app/mymeetings" target="_blank" rel="noopener noreferrer">Conference</a>
                             </li>
-                            <li className={postURL[1] === "event" && pathLength > 2 ? "menu-active" : ""}>
-                                <Link to="/event/1">Event Single</Link>
-                            </li>
-                        </ul>
-                    </li> */}
+                        </>
+                    ) : (
+                        <li className={location.pathname === "/login" ? "menu-active" : ""}>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    )}
                 </ul>
             </li>
 
             <li className={location.pathname === '/about' ? 'menu-active' : ''}>
                 <Link to="/about">About</Link>
-                {/* <ul className={blog ? "sub-menu sub-menu-open" : "sub-menu"}>
-                    <li className={location.pathname === "/blog" ? "menu-active" : ""}>
-                        <Link to="/blog">Blog</Link>
-                    </li>
-                    { <Link to="#" className={blog ? "hash menu-active" : "hash"} onClick={() => { openMobileMenu('blog'); }}>
-                        <span className="arrow "></span>
-                    </Link> }
-                </ul> */}
             </li>
 
             <li className={location.pathname === '/contact' ? 'menu-active' : ''}>

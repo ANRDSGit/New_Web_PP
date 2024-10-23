@@ -52,12 +52,6 @@ const sendLoginEmail = (email, name) => {
            border-radius: 5px; display: inline-block; margin: 10px 0;">
           Secure My Account
         </a>
-        <p>If the button above doesn't work, copy and paste the following link in your browser:</p>
-        <p style="word-wrap: break-word;">
-          <a href="${process.env.BASE_URL}/request-reset-password" style="color: #F44336;">
-            ${process.env.BASE_URL}/request-reset-password
-          </a>
-        </p>
         <p>If you need further assistance, feel free to contact our support team.</p>
         <p>Stay safe,<br>Team Patient Pulse</p>
         <hr style="border: none; border-top: 1px solid #ccc;">
@@ -145,17 +139,13 @@ router.post('/signup', async (req, res) => {
       subject: 'Confirm Your Email Address',
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-          <h2 style="color: #4CAF50;">Welcome to Your App Name, ${name}!</h2>
+          <h2 style="color: #4CAF50;">Welcome to Patient Pulse, ${name}!</h2>
           <p>Thank you for signing up. Please confirm your email address to activate your account:</p>
           <a href="${verificationUrl}" 
              style="background-color: #4CAF50; color: white; text-decoration: none; padding: 10px 20px; 
              border-radius: 5px; display: inline-block; margin: 10px 0;">
             Verify Email
           </a>
-          <p>If the button above doesn't work, copy and paste the following link in your browser:</p>
-          <p style="word-wrap: break-word;">
-            <a href="${verificationUrl}" style="color: #4CAF50;">${verificationUrl}</a>
-          </p>
           <p>If you didn’t create this account, you can safely ignore this email.</p>
           <p>Best regards,<br>Team Patient Pulse</p>
           <hr style="border: none; border-top: 1px solid #ccc;">
@@ -290,9 +280,29 @@ router.post('/request-delete-account', authenticateToken, async (req, res) => {
     const mailOptions = {
       from: process.env.GMAIL_USER,
       to: patient.email,
-      subject: 'Confirm Account Deletion',
-      text: `Hi ${patient.name}, \n\nPlease confirm the deletion of your account by clicking the link: ${deleteUrl}.`,
+      subject: 'Action Required: Confirm Your Account Deletion',
+      html: `
+        <p>Dear ${patient.name},</p>
+    
+        <p>We hope this message finds you well.</p>
+    
+        <p>We have received a request to delete your account from our system. To proceed with this request, please confirm the account deletion by clicking the button below:</p>
+    
+        <a href="${deleteUrl}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px;">
+          Confirm Account Deletion
+        </a>
+    
+        <p>If you did not request this action, please ignore this message, and no changes will be made to your account.</p>
+    
+        <p>Should you have any questions or need further assistance, feel free to contact our support team.</p>
+    
+        <p>Thank you for choosing Patient Pulse.</p>
+    
+        <p>Best regards,<br/>Team Patient Pulse</p>
+      `,
     };
+    
+    
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -320,6 +330,68 @@ router.get('/confirm-delete-account', async (req, res) => {
     res.status(400).send('Invalid or expired token');
   }
 });
+
+
+//contact us form
+router.post('/contact', async (req, res) => {
+  const { user_name, user_email, user_subject, user_phone, user_message } = req.body;
+
+  try {
+    // Compose email
+    const mailOptions = {
+      from: `"Team Patient Pulse Contact" <${process.env.GMAIL_USER}>`,
+      to: user_email, // Send to your preferred email address
+      subject: user_subject || 'New Contact Form Submission from Patient Pulse',
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+          <h2 style="color: #4CAF50;">New Contact Form Submission</h2>
+          <p>Dear Team,</p>
+          <p>We have received a new contact form submission. Below are the details:</p>
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;"><strong>Name:</strong></td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${user_name}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;"><strong>Email:</strong></td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${user_email}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;"><strong>Phone:</strong></td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${user_phone}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;"><strong>Message:</strong></td>
+              <td style="border: 1px solid #ddd; padding: 8px;">${user_message}</td>
+            </tr>
+          </table>
+          <p>Thank you,</p>
+          <p><strong>Team Patient Pulse</strong></p>
+          <hr />
+          <footer style="font-size: 12px; color: #555;">
+            This message was sent from the Patient Pulse website. If you did not submit this form, please disregard this email.
+          </footer>
+        </div>
+      `,
+    };
+    
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending contact form email:', error);
+        return res.status(500).json({ error: 'Error sending email' });
+      }
+      console.log('Contact form email sent:', info.response);
+      res.status(200).json({ message: 'Email sent successfully' });
+    });
+
+  } catch (error) {
+    console.error('Error handling contact form submission:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 // Create Appointment
 router.post('/appointments', authenticateToken, async (req, res) => {
@@ -378,5 +450,22 @@ router.delete('/appointments/:id', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Error deleting appointment' });
   }
 });
+
+// Get All Appointments for a specific date (for checking availability)
+router.get('/appointments', authenticateToken, async (req, res) => {
+  const { date } = req.query;
+  
+  if (!date) {
+    return res.status(400).json({ message: 'Date is required' });
+  }
+
+  try {
+    const appointments = await Appointment.find({ date });
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching appointments' });
+  }
+});
+
 
 module.exports = router;

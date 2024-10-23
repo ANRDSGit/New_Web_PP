@@ -95,15 +95,30 @@ const Appointments = () => {
     if (newAppointment.date || (selectedAppointment && selectedAppointment.date)) {
       const slots = generateTimeSlots();
       const currentDate = newAppointment.date || selectedAppointment.date;
-      const bookedSlots = appointments
-        .filter((apt) => apt.date === currentDate && apt._id !== (selectedAppointment?._id))
-        .map((apt) => apt.time);
-
-      const available = slots.filter((slot) => !bookedSlots.includes(slot));
-      setAvailableSlots(available);
+  
+      // Fetch all appointments for the selected date, regardless of the user
+      axios
+        .get(`http://localhost:7000/api/auth/appointments?date=${currentDate}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          const bookedSlots = res.data.map((apt) => apt.time); // Collect booked time slots for all users
+  
+          // If editing an appointment, allow the current slot to remain available
+          const excludeCurrentAppointment = selectedAppointment ? selectedAppointment._id : null;
+  
+          const available = slots.filter((slot) => !bookedSlots.includes(slot) || 
+            res.data.some((apt) => apt._id === excludeCurrentAppointment && apt.time === slot)
+          );
+  
+          setAvailableSlots(available);
+        })
+        .catch((err) => {
+          console.error('Error fetching all appointments for the date', err);
+        });
     }
   }, [newAppointment.date, selectedAppointment?.date, appointments, selectedAppointment]);
-
+  
   // Handle creation of a new appointment
   const handleCreate = () => {
     if (!newAppointment.date || !newAppointment.time) {
