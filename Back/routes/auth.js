@@ -339,8 +339,8 @@ router.post('/contact', async (req, res) => {
   try {
     // Compose email
     const mailOptions = {
-      from: `"Team Patient Pulse Contact" <${process.env.GMAIL_USER}>`,
-      to: user_email, // Send to your preferred email address
+      from: user_email,
+      to: `"Team Patient Pulse Contact" <${process.env.GMAIL_USER}>`, // Send to your preferred email address
       subject: user_subject || 'New Contact Form Submission from Patient Pulse',
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.5;">
