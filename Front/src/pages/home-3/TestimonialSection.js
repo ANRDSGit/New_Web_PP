@@ -73,11 +73,13 @@ const Testimonial = () => {
         }
     ];
 
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+    
     // Fetch total physical appointments when component mounts
     useEffect(() => {
         const fetchTotalPhysicalAppointments = async () => {
             try {
-                const response = await axios.get('http://localhost:7000/api/auth/appointments/physical-count'); // Replace with your actual backend route
+                const response = await axios.get(`${apiUrl}/appointments/physical-count`); // Replace with your actual backend route
                 setTotalPhysicalAppointments(response.data.count);
             } catch (error) {
                 console.error("Error fetching total physical appointments:", error);
@@ -89,7 +91,7 @@ const Testimonial = () => {
     useEffect(() => {
         const fetchTotalRemoteAppointments = async () => {
             try {
-                const response = await axios.get('http://localhost:7000/api/auth/appointments/remote-count'); // Replace with your actual backend route
+                const response = await axios.get(`${apiUrl}/appointments/remote-count`); // Replace with your actual backend route
                 setTotalRemoteAppointments(response.data.count);
             } catch (error) {
                 console.error("Error fetching total remote appointments:", error);
@@ -101,7 +103,7 @@ const Testimonial = () => {
     useEffect(() => {
         const fetchTotalPatients = async () => {
             try {
-                const response = await axios.get('http://localhost:7000/api/auth/total-patients'); // Replace with your actual backend route
+                const response = await axios.get(`${apiUrl}/total-patients`); // Replace with your actual backend route
                 setTotalPatients(response.data.count);
             } catch (error) {
                 console.error("Error fetching total patients:", error);

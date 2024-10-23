@@ -70,13 +70,13 @@ const Appointments = () => {
   const [successMessage, setSuccessMessage] = useState(''); // New state for success messages
   const token = localStorage.getItem('token');
 
-  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   // Fetch appointments on component mount
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:7000/api/auth/appointments/user', {
+      .get(`${apiUrl}/appointments/user`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -98,7 +98,7 @@ const Appointments = () => {
   
       // Fetch all appointments for the selected date, regardless of the user
       axios
-        .get(`http://localhost:7000/api/auth/appointments?date=${currentDate}`, {
+        .get(`${apiUrl}/appointments?date=${currentDate}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -128,7 +128,7 @@ const Appointments = () => {
 
     setLoading(true);
     axios
-      .post('http://localhost:7000/api/auth/appointments', newAppointment, {
+      .post(`${apiUrl}/appointments`, newAppointment, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -170,7 +170,7 @@ const Appointments = () => {
     setLoading(true);
     axios
       .put(
-        `http://localhost:7000/api/auth/appointments/${selectedAppointment._id}`,
+        `${apiUrl}/appointments/${selectedAppointment._id}`,
         selectedAppointment,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -210,7 +210,7 @@ const Appointments = () => {
 
     setLoading(true);
     axios
-      .delete(`http://localhost:7000/api/auth/appointments/${appointmentToDelete._id}`, {
+      .delete(`${apiUrl}/appointments/${appointmentToDelete._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {

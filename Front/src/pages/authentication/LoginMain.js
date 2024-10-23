@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const LoginMain = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
@@ -15,7 +17,7 @@ const LoginMain = () => {
         e.preventDefault();
         setError(''); // Clear previous errors
         try {
-            const response = await axios.post('http://localhost:7000/api/auth/login', credentials);
+            const response = await axios.post(`${apiUrl}/login`, credentials);
             localStorage.setItem('token', response.data.token); // Store JWT token
             navigate('/'); // Redirect to appointments page
         } catch (error) {

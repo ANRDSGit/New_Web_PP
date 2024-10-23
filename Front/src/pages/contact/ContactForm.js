@@ -10,13 +10,15 @@ const ContactForm = () => {
         phone: ''
     });
 
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
     // Effect to load patient details from API using JWT token
     useEffect(() => {
         const fetchPatientDetails = async () => {
             const token = localStorage.getItem('token'); // Assuming JWT is stored in localStorage
             if (token) {
                 try {
-                    const response = await axios.get('http://localhost:7000/api/auth/profile', {
+                    const response = await axios.get(`${apiUrl}/profile`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     const patientData = response.data;
@@ -38,7 +40,7 @@ const ContactForm = () => {
 function sendEmail(e) {
     e.preventDefault();
 
-    fetch('http://localhost:7000/api/auth/contact', { // Ensure the correct API endpoint
+    fetch(`${apiUrl}/contact`, { // Ensure the correct API endpoint
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

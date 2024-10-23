@@ -20,11 +20,14 @@ const InstructorDetailsMain = () => {
     const [totalPhysicalAppointments, setTotalPhysicalAppointments] = useState(0);
     const [state, setState] = useState(true);
 
+
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
     useEffect(() => {
         const fetchTotalRemoteAppointments = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:7000/api/auth/user/remoteCount', {
+                const response = await axios.get(`${apiUrl}/user/remoteCount`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setTotalRemoteAppointments(response.data.count);
@@ -39,7 +42,7 @@ const InstructorDetailsMain = () => {
         const fetchTotalPhysicalAppointments = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:7000/api/auth/user/physicalCount', {
+                const response = await axios.get(`${apiUrl}/user/physicalCount`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setTotalPhysicalAppointments(response.data.count);
@@ -54,7 +57,7 @@ const InstructorDetailsMain = () => {
         const fetchPatientProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:7000/api/auth/profile', {
+                const response = await axios.get(`${apiUrl}/profile`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setPatient(response.data);
@@ -99,7 +102,7 @@ const InstructorDetailsMain = () => {
                 try {
                     const token = localStorage.getItem('token');
                     await axios.post(
-                        'http://localhost:7000/api/auth/request-delete-account',
+                        `${apiUrl}/request-delete-account`,
                         {},
                         { headers: { Authorization: `Bearer ${token}` } }
                     );

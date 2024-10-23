@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const SignupMain = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -45,7 +47,7 @@ const SignupMain = () => {
 
         try {
             // Send data to your backend (MongoDB)
-            await axios.post('http://localhost:7000/api/auth/signup', formData);
+            await axios.post(`${apiUrl}/signup`, formData);
             alert('A verification email has been sent to your email address.');
             // Redirect to login page after successful sign up
             navigate('/login');
